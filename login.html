@@ -141,8 +141,8 @@
         <div class="flex-1 border-t border-white/10"></div>
       </div>
 
-      <!-- Magic Link -->
-      <form id="magic-link-form" class="w-full flex flex-col gap-3">
+      <!-- Auth Form -->
+      <form id="auth-form" class="w-full flex flex-col gap-3">
         <div class="relative w-full">
           <input 
             type="email" 
@@ -152,17 +152,27 @@
             class="w-full bg-[#0a0a0a] border border-white/10 rounded-full px-5 py-3.5 text-white placeholder-white/40 focus:outline-none focus:border-cadence/50 transition-colors text-sm"
           />
         </div>
+        <div class="relative w-full">
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Contraseña" 
+            required
+            class="w-full bg-[#0a0a0a] border border-white/10 rounded-full px-5 py-3.5 text-white placeholder-white/40 focus:outline-none focus:border-cadence/50 transition-colors text-sm"
+          />
+        </div>
         
-        <button type="submit" id="btn-magic-link" class="w-full bg-cadence text-black font-bold rounded-full px-6 py-3.5 hover:bg-[#7FFFCF] hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
-          <span>Enviar Magic Link</span>
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
+        <button type="button" id="btn-auth" class="w-full bg-cadence text-black font-bold rounded-full px-6 py-3.5 hover:bg-[#7FFFCF] hover:scale-[1.02] transition-all flex items-center justify-center gap-2 mt-2">
+          <span>Sign in &rarr;</span>
         </button>
       </form>
 
+      <div class="mt-6 text-sm text-white/50">
+        <span id="toggle-text">Don't have an account?</span> 
+        <button type="button" id="toggle-action" class="text-cadence font-semibold hover:underline">Sign Up</button>
+      </div>
+
       <div id="error-message" class="text-red-400 mt-4 text-xs hidden"></div>
-      <div id="success-message" class="text-cadence mt-4 text-xs hidden">¡Enlace enviado! Revisa tu bandeja de entrada.</div>
       
     </div>
   </div>
@@ -172,20 +182,6 @@
     import { initAuth } from './src/auth.js';
     
     initAuth();
-
-    // Simular el inicio de sesión directo a la app (Fricción Cero)
-    document.getElementById('btn-google').addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = 'app.html';
-    });
-
-    document.getElementById('magic-link-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('success-message').classList.remove('hidden');
-      setTimeout(() => {
-        window.location.href = 'app.html';
-      }, 1500);
-    });
   </script>
 </body>
 </html>
