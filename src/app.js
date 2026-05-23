@@ -7,9 +7,12 @@ import { renderSettings } from './views/settings.js';
 import { supabase } from './lib/supabase.js';
 
 // Route Protection Logic
+document.body.style.display = 'none';
 supabase.auth.getSession().then(({ data: { session } }) => {
   if (!session) {
     window.location.href = '/index.html';
+  } else {
+    document.body.style.display = '';
   }
 });
 
@@ -85,26 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnRouteSettings) {
     btnRouteSettings.addEventListener('click', () => switchView('settings'));
   }
-
-  // Compete Hub Tabs Logic
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      // Update buttons
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      // Update contents
-      tabContents.forEach(content => {
-        if (content.id === `tab-${target}`) {
-          content.style.display = 'block';
-        } else {
-          content.style.display = 'none';
-        }
-      });
-    });
-  });
 
   // Initialize first view
   switchView('dashboard');

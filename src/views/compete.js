@@ -10,14 +10,13 @@ export function renderCompete() {
     </div>
     
     <!-- Tab Navigation -->
-    <div style="display: flex; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; padding-bottom: 8px;">
-      <div style="font-family: var(--font-heading); font-weight: 700; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; cursor: pointer;">Ligas Globales</div>
-      <div style="font-family: var(--font-heading); font-weight: 700; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Batallas 1v1</div>
-      <div style="font-family: var(--font-heading); font-weight: 700; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Desbloqueables</div>
+    <div class="compete-tabs" style="display: flex; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; padding-bottom: 8px;">
+      <div class="compete-tab-btn active" data-tab="leagues" style="font-family: var(--font-heading); font-weight: 700; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; cursor: pointer;">Ligas Globales</div>
+      <div class="compete-tab-btn" data-tab="battles" style="font-family: var(--font-heading); font-weight: 700; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;">Batallas 1v1</div>
+      <div class="compete-tab-btn" data-tab="unlocks" style="font-family: var(--font-heading); font-weight: 700; color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;">Desbloqueables</div>
     </div>
     
-    <div style="display: grid; grid-template-columns: 1fr; gap: 32px;">
-      
+    <div class="compete-tab-content" id="compete-tab-leagues">
       <!-- Global Leaderboard (Leagues) -->
       <div>
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px;">
@@ -60,7 +59,9 @@ export function renderCompete() {
           </div>
         </div>
       </div>
-      
+    </div>
+    
+    <div class="compete-tab-content" id="compete-tab-battles" style="display: none;">
       <!-- 1v1 Battles -->
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -103,7 +104,47 @@ export function renderCompete() {
           </div>
         </div>
       </div>
-      
+    </div>
+    
+    <div class="compete-tab-content" id="compete-tab-unlocks" style="display: none;">
+      <div style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+        <h3 class="heading" style="color: rgba(255,255,255,0.5);">Desbloqueables - Próximamente</h3>
+      </div>
     </div>
   `;
+
+  const btns = container.querySelectorAll('.compete-tab-btn');
+  const contents = container.querySelectorAll('.compete-tab-content');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.tab;
+      
+      btns.forEach(b => {
+        b.classList.remove('active');
+        b.style.color = 'rgba(255,255,255,0.4)';
+        b.style.borderBottom = 'none';
+      });
+      
+      btn.classList.add('active');
+      btn.style.color = 'var(--primary)';
+      btn.style.borderBottom = '2px solid var(--primary)';
+      
+      contents.forEach(content => {
+        if (content.id === `compete-tab-${tabId}`) {
+          content.style.display = 'block';
+        } else {
+          content.style.display = 'none';
+        }
+      });
+    });
+    
+    // Add hover effects manually since we are using inline styles for some reason
+    btn.addEventListener('mouseenter', () => {
+      if (!btn.classList.contains('active')) btn.style.color = '#fff';
+    });
+    btn.addEventListener('mouseleave', () => {
+      if (!btn.classList.contains('active')) btn.style.color = 'rgba(255,255,255,0.4)';
+    });
+  });
 }

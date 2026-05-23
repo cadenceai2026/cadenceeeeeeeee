@@ -77,12 +77,60 @@ export function renderCoach() {
           <span class="liquid-glass" style="padding: 8px 16px; border-radius: var(--radius-pill); font-size: 0.85rem; cursor: pointer;">Hoy me siento cansado</span>
         </div>
         <div class="liquid-glass" style="display: flex; gap: 8px; padding: 8px; border-radius: 999px;">
-          <input type="text" placeholder="Pregunta a tu coach..." style="flex: 1; background: transparent; border: none; padding: 0 16px; color: #fff; font-size: 0.95rem; outline: none; box-shadow: none;" />
-          <button style="background: var(--primary); color: #000; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
+          <input type="text" id="coach-input" placeholder="Pregunta a tu coach..." style="flex: 1; background: transparent; border: none; padding: 0 16px; color: #fff; font-size: 0.95rem; outline: none; box-shadow: none;" />
+          <button id="coach-send-btn" style="background: var(--primary); color: #000; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
           </button>
         </div>
       </div>
     </div>
   `;
+
+  const input = document.getElementById('coach-input');
+  const sendBtn = document.getElementById('coach-send-btn');
+  const chatHistory = document.getElementById('chat-history');
+
+  const sendMessage = () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Add user message
+    const userMsg = document.createElement('div');
+    userMsg.style.display = 'flex';
+    userMsg.style.justifyContent = 'flex-end';
+    userMsg.innerHTML = `
+      <div class="liquid-glass" style="padding: 16px 20px; border-radius: 24px 24px 4px 24px; background: rgba(110, 255, 192, 0.1); border: 1px solid rgba(110, 255, 192, 0.2); font-size: 0.95rem; max-width: 85%; color: #fff;">
+        ${text}
+      </div>
+    `;
+    chatHistory.appendChild(userMsg);
+    input.value = '';
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+
+    // Simulate AI typing
+    setTimeout(() => {
+      const aiMsg = document.createElement('div');
+      aiMsg.style.display = 'flex';
+      aiMsg.style.gap = '16px';
+      aiMsg.style.alignItems = 'flex-start';
+      aiMsg.style.maxWidth = '85%';
+      aiMsg.innerHTML = `
+        <div class="liquid-glass" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 15px rgba(110, 255, 192, 0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--primary)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <div class="liquid-glass-strong" style="padding: 16px 20px; border-radius: 4px 24px 24px 24px; font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.6;">
+          Entendido. Analizaré tu perfil y ajustaré el plan según tus indicaciones para optimizar tu rendimiento.
+        </div>
+      `;
+      chatHistory.appendChild(aiMsg);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }, 1000);
+  };
+
+  if (sendBtn && input) {
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  }
 }

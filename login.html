@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="description" content="Cadence AI - Login" />
   <meta name="theme-color" content="#050505" />
@@ -11,26 +11,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            heading: ['Syne', 'sans-serif'],
-            body: ['Space Grotesk', 'sans-serif'],
-          },
-          colors: {
-            cadence: '#6EFFC0',
-          },
-          borderRadius: {
-            DEFAULT: "9999px",
-          }
-        }
-      }
-    }
-  </script>
 
   <style>
     body {
@@ -137,12 +117,12 @@
 
       <div class="flex items-center w-full my-6 text-white/30 text-xs uppercase tracking-widest">
         <div class="flex-1 border-t border-white/10"></div>
-        <span class="px-4">O</span>
+        <span class="px-4">or</span>
         <div class="flex-1 border-t border-white/10"></div>
       </div>
 
       <!-- Auth Form -->
-      <form id="auth-form" class="w-full flex flex-col gap-3">
+      <form id="auth-form" class="w-full flex flex-col gap-3" method="POST">
         <div class="relative w-full">
           <input 
             type="email" 
@@ -190,6 +170,7 @@
   </div>
 
   <script type="module">
+    import './src/tailwind.css';
     import './src/style.css';
     import { initAuth } from './src/auth.js';
     

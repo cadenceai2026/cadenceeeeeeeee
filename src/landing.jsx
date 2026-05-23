@@ -1,0 +1,342 @@
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom/client';
+import { motion, useInView } from 'framer-motion';
+import './tailwind.css';
+import './style.css';
+
+// FadingVideo Component
+const FadingVideo = ({ src, className, style }) => {
+  const videoRef = useRef(null);
+  const reqRef = useRef(null);
+  const fadingOutRef = useRef(false);
+
+  const fadeTo = (targetOpacity, durationMs) => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reqRef.current) {
+      cancelAnimationFrame(reqRef.current);
+    }
+
+    const startOpacity = parseFloat(video.style.opacity || '0');
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+
+      const currentOpacity = startOpacity + (targetOpacity - startOpacity) * progress;
+      if (videoRef.current) {
+        videoRef.current.style.opacity = currentOpacity.toString();
+      }
+
+      if (progress < 1) {
+        reqRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    reqRef.current = requestAnimationFrame(animate);
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const FADE_MS = 500;
+    const FADE_OUT_LEAD = 0.55;
+
+    const handleLoadedData = () => {
+      video.style.opacity = '0';
+      video.play().catch(e => console.log('Autoplay prevented', e));
+      fadeTo(1, FADE_MS);
+    };
+
+    const handleTimeUpdate = () => {
+      if (!video.duration) return;
+      const timeLeft = video.duration - video.currentTime;
+
+      if (!fadingOutRef.current && timeLeft <= FADE_OUT_LEAD && timeLeft > 0) {
+        fadingOutRef.current = true;
+        fadeTo(0, FADE_MS);
+      }
+    };
+
+    const handleEnded = () => {
+      video.style.opacity = '0';
+      setTimeout(() => {
+        if (!videoRef.current) return;
+        video.currentTime = 0;
+        video.play().catch(e => console.log('Autoplay prevented', e));
+        fadingOutRef.current = false;
+        fadeTo(1, FADE_MS);
+      }, 100);
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    if (video.readyState >= 2) {
+      handleLoadedData();
+    }
+
+    return () => {
+      if (reqRef.current) {
+        cancelAnimationFrame(reqRef.current);
+      }
+      video.removeEventListener('loadeddata', handleLoadedData);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      className={className}
+      style={{ opacity: 0, ...style }}
+      autoPlay
+      muted
+      playsInline
+      preload="auto"
+    />
+  );
+};
+
+// BlurText Component
+const BlurText = ({ text, className }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const words = text.split(" ");
+
+  return (
+    <h1 ref={ref} className={`flex flex-wrap ${className}`}>
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          className="mr-[0.25em]"
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 50 }}
+          animate={isInView ? {
+            filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'],
+            opacity: [0, 0.5, 1],
+            y: [50, -5, 0]
+          } : {}}
+          transition={{
+            duration: 0.7,
+            ease: "easeOut",
+            delay: (i * 100) / 1000,
+            times: [0, 0.5, 1]
+          }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </h1>
+  );
+};
+
+// --- SECTIONS ---
+
+const Navbar = () => (
+  <nav className="fixed top-4 left-0 right-0 px-8 lg:px-16 z-50 flex items-center justify-between">
+    <div className="w-12 h-12 liquid-glass rounded-full flex items-center justify-center">
+      <span className="font-heading font-bold text-xl text-white">C</span>
+    </div>
+
+    <div className="flex items-center">
+      <a href="login.html" className="liquid-glass-strong rounded-full px-6 py-2.5 flex items-center gap-1.5 group hover:scale-105 transition-transform">
+        <span className="text-white text-sm font-bold whitespace-nowrap">Log In</span>
+      </a>
+    </div>
+  </nav>
+);
+
+const Hero = () => {
+  return (
+    <section className="relative w-full min-h-screen overflow-hidden flex flex-col bg-black">
+      <FadingVideo
+        src="https://cdn.coverr.co/videos/coverr-a-man-running-on-a-treadmill-5381/1080p.mp4"
+        className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+        style={{ width: "120%", height: "120%", filter: "brightness(0.6) contrast(1.1)" }}
+      />
+
+      <div className="relative z-10 flex-1 flex flex-col justify-center items-center pt-24 px-4 text-center">
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, ease: "easeOut", duration: 0.8 }}
+          className="liquid-glass rounded-full flex items-center p-1 pr-4 mb-6"
+        >
+          <span className="bg-cadence text-black px-3 py-1 text-xs font-bold rounded-full mr-3">Beta</span>
+          <span className="text-sm text-white/90">AI-Powered Hybrid Training</span>
+        </motion.div>
+
+        <BlurText
+          text="Train Like an Athlete. Level Up Like a Gamer."
+          className="text-5xl md:text-6xl lg:text-[5.5rem] font-heading font-bold text-white leading-[0.9] max-w-4xl justify-center tracking-tight"
+        />
+
+        <motion.p
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, ease: "easeOut", duration: 0.8 }}
+          className="mt-6 text-sm md:text-lg text-white/80 max-w-2xl font-body font-light leading-relaxed"
+        >
+          Sync with Strava. Dominate the asphalt and the Hyrox arena with dynamic plans generated by AI based on the Norwegian method.
+        </motion.p>
+
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ delay: 1.1, ease: "easeOut", duration: 0.8 }}
+          className="flex flex-col sm:flex-row items-center gap-6 mt-8"
+        >
+          <a href="login.html" className="liquid-glass-strong rounded-full px-8 py-4 flex items-center gap-2 group hover:scale-105 transition-transform cursor-pointer">
+            <span className="text-base font-bold text-cadence">Start Free Trial</span>
+            <svg className="w-5 h-5 text-cadence fill-cadence" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </a>
+
+          <a href="app.html" className="flex items-center gap-2 text-white hover:text-cadence transition-colors group">
+            <span className="text-sm font-medium">View Leaderboards</span>
+            <svg className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ delay: 1.3, ease: "easeOut", duration: 0.8 }}
+          className="flex flex-wrap justify-center gap-4 mt-12"
+        >
+          <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col text-left hover:border-cadence/30 transition-colors border border-transparent">
+            <svg className="w-7 h-7 text-white/70 mb-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <div className="mt-8">
+              <div className="font-heading font-bold text-white text-4xl tracking-tight leading-none">145 Hrs</div>
+              <div className="text-xs text-cadence font-body mt-2 uppercase tracking-widest">Avg Monthly Training</div>
+            </div>
+          </div>
+
+          <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col text-left hover:border-cadence/30 transition-colors border border-transparent">
+            <svg className="w-7 h-7 text-white/70 mb-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+            <div className="mt-8">
+              <div className="font-heading font-bold text-white text-4xl tracking-tight leading-none">LVL 50</div>
+              <div className="text-xs text-cadence font-body mt-2 uppercase tracking-widest">Max Level Cap</div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, ease: "easeOut", duration: 0.8 }}
+        className="relative z-10 flex flex-col items-center gap-4 pb-8 mt-10"
+      >
+        <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white/80">
+          Seamless integration with your ecosystem
+        </div>
+        <div className="flex items-center justify-center flex-wrap gap-8 md:gap-16 px-4">
+          {['Strava', 'Garmin', 'Apple Health', 'Whoop', 'Suunto'].map(partner => (
+            <span key={partner} className="font-heading font-bold text-white/50 hover:text-white transition-colors text-xl md:text-2xl tracking-tight cursor-pointer">
+              {partner}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+const Capabilities = () => {
+  const cards = [
+    {
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />,
+      tags: ['VO2 Max', 'Lactate Threshold', 'Norwegian Method'],
+      title: 'AI Run Coach',
+      body: 'Smart periodization adapts to your real-time fatigue and Strava metrics, optimizing your heart rate zones dynamically.'
+    },
+    {
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />,
+      tags: ['Hyrox', 'Sled Push', '10k Pace', 'Transitions'],
+      title: 'Hybrid Strength',
+      body: 'Combine asphalt endurance with functional power. Dedicated plans to crush your next Hyrox without losing your running pace.'
+    },
+    {
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />,
+      tags: ['Leaderboards', 'XP Grind', 'Global Leagues'],
+      title: 'Global Battles',
+      body: 'Turn sweat into XP. Compete with friends, climb the ranks, and unlock exclusive aesthetic rewards for your profile.'
+    }
+  ];
+
+  return (
+    <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col">
+      <FadingVideo
+        src="https://cdn.coverr.co/videos/coverr-weightlifting-2815/1080p.mp4"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+      />
+
+      <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-10 flex flex-col flex-1">
+        <div className="mb-auto">
+          <div className="text-sm font-body text-cadence tracking-widest uppercase mb-4">
+            // THE HYBRID ENGINE
+          </div>
+          <h2 className="font-heading font-extrabold text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-tight">
+            Performance<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-cadence">gamified</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          {cards.map((card, idx) => (
+            <div key={idx} className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col hover:border-cadence/30 transition-colors duration-500 border border-transparent group">
+              <div className="flex justify-between items-start w-full">
+                <div className="w-11 h-11 liquid-glass rounded flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {card.icon}
+                  </svg>
+                </div>
+                <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                  {card.tags.map(tag => (
+                    <span key={tag} className="liquid-glass rounded-full px-2 py-1 text-[11px] text-cadence font-body whitespace-nowrap">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto pt-8">
+                <h3 className="font-heading font-bold text-white text-3xl md:text-4xl tracking-tight leading-none">
+                  {card.title}
+                </h3>
+                <p className="mt-3 text-sm text-white/70 font-body font-light leading-snug max-w-[32ch]">
+                  {card.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const App = () => (
+  <div className="w-full min-h-screen bg-black">
+    <Navbar />
+    <Hero />
+    <Capabilities />
+  </div>
+);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);

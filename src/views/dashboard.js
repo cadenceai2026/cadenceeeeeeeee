@@ -5,7 +5,7 @@ export function renderDashboard() {
       <h2 class="heading" style="font-size: 2rem; color: #fff;">Base de Operaciones</h2>
       <div class="liquid-glass" style="padding: 6px 12px; border-radius: var(--radius-pill); display: flex; align-items: center; gap: 8px;">
         <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
-        <span class="mono" style="font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 1px;">SIN DATOS</span>
+        <span class="mono" style="font-size: 0.75rem; color: var(--primary); letter-spacing: 1px;">DATOS SINCRONIZADOS</span>
       </div>
     </div>
     
@@ -17,9 +17,9 @@ export function renderDashboard() {
       <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 24px;">Principiante Híbrido</p>
       
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
-        <span class="mono" style="font-size: 0.75rem; color: var(--primary);">0 XP</span>
+        <span class="mono" style="font-size: 0.75rem; color: var(--primary);">550 XP</span>
         <div class="liquid-glass" style="flex: 1; height: 8px; border-radius: var(--radius-pill);">
-          <div style="width: 0%; height: 100%; background: var(--primary); border-radius: var(--radius-pill); box-shadow: 0 0 15px var(--primary);"></div>
+          <div style="width: 55%; height: 100%; background: var(--primary); border-radius: var(--radius-pill); box-shadow: 0 0 15px var(--primary);"></div>
         </div>
         <span class="mono" style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">1000 XP</span>
       </div>

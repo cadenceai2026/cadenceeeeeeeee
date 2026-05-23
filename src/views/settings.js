@@ -11,7 +11,7 @@ export function renderSettings() {
         <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--muted)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
       </div>
       <div>
-        <h3 class="heading" style="margin:0;">Alex Runner</h3>
+        <h3 class="heading" id="settings-user-name" style="margin:0;">Cargando...</h3>
         <p class="text-muted" style="margin: 4px 0 0 0; font-size: 0.9rem;">Madrid, Spain</p>
         <span class="chip" style="margin-top: 8px; background: rgba(207, 189, 255, 0.15); border-color: var(--secondary); color: var(--secondary); font-size: 0.75rem;">Elite Member</span>
       </div>
@@ -66,4 +66,14 @@ export function renderSettings() {
       await supabase.auth.signOut();
     });
   }
+
+  // Fetch actual user data
+  import('../lib/supabase.js').then(({ supabase }) => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      const nameEl = document.getElementById('settings-user-name');
+      if (nameEl && user && user.email) {
+        nameEl.textContent = user.email.split('@')[0];
+      }
+    });
+  });
 }
