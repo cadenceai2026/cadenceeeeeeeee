@@ -114,15 +114,15 @@
 <body class="font-body flex items-center justify-center min-h-screen relative">
   <div class="bg-glow"></div>
   
-  <div class="relative z-10 w-full max-w-md px-6">
+  <div id="main-auth-panel" class="relative z-10 w-full max-w-md px-6 transition-opacity duration-500">
     <div class="liquid-glass-strong rounded-[2rem] p-10 flex flex-col items-center text-center">
       
       <div class="w-16 h-16 liquid-glass rounded-full flex items-center justify-center mb-6">
         <span class="font-heading font-bold text-3xl text-white">C</span>
       </div>
       
-      <h1 class="font-heading font-extrabold text-3xl text-white mb-2 tracking-tight">Acceso Rápido</h1>
-      <p class="text-white/60 text-sm mb-8">Únete a la nueva era del entrenamiento híbrido sin contraseñas.</p>
+      <h1 id="auth-title" class="font-heading font-extrabold text-3xl text-white mb-2 tracking-tight">Acceso Rápido</h1>
+      <p id="auth-subtitle" class="text-white/60 text-sm mb-8">Inicia sesión en la nueva era del entrenamiento híbrido.</p>
       
       <!-- Google Auth -->
       <button id="btn-google" class="w-full liquid-glass hover:bg-white/5 transition-colors rounded-full px-6 py-3.5 flex items-center justify-center gap-3 mb-4 group">
@@ -174,6 +174,18 @@
 
       <div id="error-message" class="text-red-400 mt-4 text-xs hidden"></div>
       
+    </div>
+  </div>
+
+  <!-- Success 3D Overlay -->
+  <div id="success-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center hidden opacity-0 transition-opacity duration-1000 bg-[#050505]">
+    <div id="canvas-container" class="absolute inset-0 z-0"></div>
+    <div class="relative z-10 flex flex-col items-center pointer-events-none mt-64">
+      <h1 class="font-heading font-extrabold text-5xl text-white mb-4 tracking-tight drop-shadow-2xl text-center">Welcome to Cadence</h1>
+      <p class="text-white/80 text-lg mb-8 drop-shadow-lg text-center">Please verify your email to unlock your AI Coach.</p>
+      <button class="pointer-events-auto max-w-xs bg-cadence text-black font-bold rounded-full px-8 py-3.5 hover:bg-[#7FFFCF] hover:scale-[1.02] transition-all" onclick="window.location.reload()">
+        Back to Login
+      </button>
     </div>
   </div>
 

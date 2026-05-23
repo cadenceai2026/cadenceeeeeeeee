@@ -8,6 +8,9 @@ export function initAuth() {
   const toggleText = document.getElementById('toggle-text');
   const errorMsg = document.getElementById('error-message');
 
+  const authTitle = document.getElementById('auth-title');
+  const authSubtitle = document.getElementById('auth-subtitle');
+
   let isSignUp = false;
 
   // Check if user is already logged in
@@ -40,10 +43,14 @@ export function initAuth() {
   toggleAction.addEventListener('click', () => {
     isSignUp = !isSignUp;
     if (isSignUp) {
+      if (authTitle) authTitle.textContent = 'Crear Cuenta';
+      if (authSubtitle) authSubtitle.textContent = 'Únete a la nueva era del entrenamiento híbrido.';
       btnAuth.innerHTML = 'Sign up &rarr;';
       toggleText.textContent = 'Already have an account?';
       toggleAction.textContent = 'Sign In';
     } else {
+      if (authTitle) authTitle.textContent = 'Acceso Rápido';
+      if (authSubtitle) authSubtitle.textContent = 'Inicia sesión en la nueva era del entrenamiento híbrido.';
       btnAuth.innerHTML = 'Sign in &rarr;';
       toggleText.textContent = "Don't have an account?";
       toggleAction.textContent = 'Sign Up';
@@ -81,9 +88,23 @@ export function initAuth() {
       errorMsg.style.display = 'block';
     } else {
       if (isSignUp && result.data.user && !result.data.session) {
-        errorMsg.textContent = 'Sign up successful! Please check your email to confirm your account.';
-        errorMsg.style.color = '#34A853'; // Success green
-        errorMsg.style.display = 'block';
+        const mainPanel = document.getElementById('main-auth-panel');
+        const overlay = document.getElementById('success-overlay');
+        
+        if (mainPanel && overlay) {
+          mainPanel.style.opacity = '0';
+          setTimeout(() => {
+            mainPanel.style.display = 'none';
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+              overlay.classList.remove('opacity-0');
+              overlay.classList.add('opacity-100');
+              import('./success3d.js').then(module => {
+                module.initSuccess3D();
+              }).catch(err => console.error("Failed to load 3D module", err));
+            }, 50);
+          }, 500);
+        }
       } else {
         // Successful login: redirect to app
         btnAuth.innerHTML = 'Connecting...';
