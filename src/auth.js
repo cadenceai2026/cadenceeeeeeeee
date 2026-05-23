@@ -35,9 +35,14 @@ export function initAuth() {
     }
   };
 
-  document.getElementById('btn-google').addEventListener('click', () => signInOAuth('google'));
-  document.getElementById('btn-apple').addEventListener('click', () => signInOAuth('apple'));
-  document.getElementById('btn-facebook').addEventListener('click', () => signInOAuth('facebook'));
+  const btnGoogle = document.getElementById('btn-google');
+  if (btnGoogle) btnGoogle.addEventListener('click', () => signInOAuth('google'));
+
+  const btnApple = document.getElementById('btn-apple');
+  if (btnApple) btnApple.addEventListener('click', () => signInOAuth('apple'));
+
+  const btnFacebook = document.getElementById('btn-facebook');
+  if (btnFacebook) btnFacebook.addEventListener('click', () => signInOAuth('facebook'));
 
   // Toggle Sign In / Sign Up
   toggleAction.addEventListener('click', () => {
