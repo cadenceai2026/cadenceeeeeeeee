@@ -10,33 +10,39 @@
     <meta name="theme-color" content="#050505" />
     <title>Cadence AI - Login</title>
     <style>
-      /* Inline specific login styles */
+      /* Layout specific styles */
       body {
         margin: 0;
         background-color: #050505;
-        background-image: radial-gradient(rgba(110, 255, 192, 0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
         overflow: hidden;
       }
-      .orb {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(110, 255, 192, 0.4) 0%, transparent 70%);
-        top: -100px;
-        right: -100px;
-        border-radius: 50%;
-        filter: blur(40px);
-        animation: pulse 4s infinite alternate;
+      
+      #hero-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
       }
-      @keyframes pulse {
-        from { transform: scale(1); opacity: 0.6; }
-        to { transform: scale(1.2); opacity: 1; }
+
+      .landing-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+        padding-left: 10vw;
+        pointer-events: none; /* Let clicks pass through to canvas when clicking outside the card */
       }
+
+      /* Mobile centering */
+      @media (max-width: 768px) {
+        .landing-container {
+          justify-content: center;
+          padding-left: 0;
+        }
+      }
+
       .login-card {
         width: 90%;
         max-width: 400px;
@@ -44,7 +50,15 @@
         text-align: center;
         position: relative;
         z-index: 10;
+        pointer-events: auto; /* Re-enable clicks for the form */
+        /* Enhanced glassmorphism */
+        background: rgba(20, 20, 20, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       }
+      
       .logo-container {
         display: flex;
         align-items: center;
@@ -92,66 +106,71 @@
     </style>
   </head>
   <body>
-    <div class="orb"></div>
+    <!-- 3D Canvas Background -->
+    <canvas id="hero-canvas"></canvas>
     
-    <div class="login-card glass surface-card animate-fade-in">
-      <div class="logo-container">
-        <!-- Bar chart logo SVG -->
-        <svg class="logo-svg" viewBox="0 0 24 24" style="fill: #6EFFC0">
-          <rect x="3" y="14" width="4" height="7" rx="1" />
-          <rect x="10" y="8" width="4" height="13" rx="1" />
-          <rect x="17" y="3" width="4" height="18" rx="1" />
-        </svg>
-        <h1 class="heading" style="margin:0; font-size: 1.8rem; letter-spacing: -0.5px;">Cadence</h1>
-      </div>
-      
-      <button id="btn-google" class="white btn-full hover-scale">
-        <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-        </svg>
-        Continue with Google
-      </button>
+    <!-- Login Interface Overlay -->
+    <div class="landing-container">
+      <div class="login-card surface-card animate-fade-in" style="border-radius: 24px;">
+        <div class="logo-container">
+          <!-- Bar chart logo SVG -->
+          <svg class="logo-svg" viewBox="0 0 24 24" style="fill: #6EFFC0">
+            <rect x="3" y="14" width="4" height="7" rx="1" />
+            <rect x="10" y="8" width="4" height="13" rx="1" />
+            <rect x="17" y="3" width="4" height="18" rx="1" />
+          </svg>
+          <h1 class="heading" style="margin:0; font-size: 1.8rem; letter-spacing: -0.5px;">Cadence</h1>
+        </div>
+        
+        <button id="btn-google" class="white btn-full hover-scale">
+          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Continue with Google
+        </button>
 
-      <button id="btn-apple" class="white btn-full hover-scale" style="margin-top: 12px; background: #000; color: #fff; border: 1px solid #333;">
-        <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
-          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.15 2.95.89 3.67 2.06-3.02 1.66-2.52 5.81.45 7.07-.63 1.54-1.57 3.07-2.77 3.88zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.36 2.4-2.13 4.28-3.74 4.25z"/>
-        </svg>
-        Continue with Apple
-      </button>
+        <button id="btn-apple" class="white btn-full hover-scale" style="margin-top: 12px; background: #000; color: #fff; border: 1px solid #333;">
+          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
+            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.15 2.95.89 3.67 2.06-3.02 1.66-2.52 5.81.45 7.07-.63 1.54-1.57 3.07-2.77 3.88zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.36 2.4-2.13 4.28-3.74 4.25z"/>
+          </svg>
+          Continue with Apple
+        </button>
 
-      <button id="btn-facebook" class="white btn-full hover-scale" style="margin-top: 12px; background: #1877F2; color: #fff; border: none;">
-        <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-        Continue with Facebook
-      </button>
-      
-      <div class="divider">or email</div>
-      
-      <div class="form-group">
-        <input type="email" placeholder="Email address" id="email" />
-      </div>
-      <div class="form-group">
-        <input type="password" placeholder="Password" id="password" />
-      </div>
-      
-      <button id="btn-auth" class="primary btn-full hover-scale">
-        Sign in &rarr;
-      </button>
-      
-      <div id="error-message" class="text-error" style="margin-top: 12px; font-size: 0.85rem; display: none;"></div>
-      
-      <div class="toggle-view">
-        <span id="toggle-text" style="color: var(--muted); font-weight: normal;">Don't have an account?</span> <span id="toggle-action">Sign Up</span>
+        <button id="btn-facebook" class="white btn-full hover-scale" style="margin-top: 12px; background: #1877F2; color: #fff; border: none;">
+          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Continue with Facebook
+        </button>
+        
+        <div class="divider">or email</div>
+        
+        <div class="form-group">
+          <input type="email" placeholder="Email address" id="email" />
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Password" id="password" />
+        </div>
+        
+        <button id="btn-auth" class="primary btn-full hover-scale">
+          Sign in &rarr;
+        </button>
+        
+        <div id="error-message" class="text-error" style="margin-top: 12px; font-size: 0.85rem; display: none;"></div>
+        
+        <div class="toggle-view">
+          <span id="toggle-text" style="color: var(--muted); font-weight: normal;">Don't have an account?</span> <span id="toggle-action">Sign Up</span>
+        </div>
       </div>
     </div>
     
     <script type="module">
       import './src/style.css';
-      import { supabase } from './src/lib/supabase.js';
+      import { init3D } from './src/hero3d.js';
+      import { initAuth } from './src/auth.js';
 
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -159,92 +178,10 @@
         });
       }
 
-      // Supabase Auth Logic
-      const emailInput = document.getElementById('email');
-      const passwordInput = document.getElementById('password');
-      const btnAuth = document.getElementById('btn-auth');
-      const toggleAction = document.getElementById('toggle-action');
-      const toggleText = document.getElementById('toggle-text');
-      const errorMsg = document.getElementById('error-message');
-
-      let isSignUp = false;
-
-      // Check if user is already logged in
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        if (session) {
-          window.location.href = '/app.html';
-        }
-      });
-
-      // OAuth Providers
-      const signInOAuth = async (provider) => {
-        errorMsg.style.display = 'none';
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: provider,
-          options: {
-            redirectTo: window.location.origin + '/app.html'
-          }
-        });
-        if (error) {
-          errorMsg.textContent = error.message;
-          errorMsg.style.display = 'block';
-        }
-      };
-
-      document.getElementById('btn-google').addEventListener('click', () => signInOAuth('google'));
-      document.getElementById('btn-apple').addEventListener('click', () => signInOAuth('apple'));
-      document.getElementById('btn-facebook').addEventListener('click', () => signInOAuth('facebook'));
-
-      toggleAction.addEventListener('click', () => {
-        isSignUp = !isSignUp;
-        if (isSignUp) {
-          btnAuth.innerHTML = 'Sign up &rarr;';
-          toggleText.textContent = 'Already have an account?';
-          toggleAction.textContent = 'Sign In';
-        } else {
-          btnAuth.innerHTML = 'Sign in &rarr;';
-          toggleText.textContent = "Don't have an account?";
-          toggleAction.textContent = 'Sign Up';
-        }
-        errorMsg.style.display = 'none';
-      });
-
-      btnAuth.addEventListener('click', async () => {
-        const email = emailInput.value;
-        const password = passwordInput.value;
-        
-        if (!email || !password) {
-          errorMsg.textContent = 'Please enter email and password.';
-          errorMsg.style.display = 'block';
-          return;
-        }
-
-        btnAuth.disabled = true;
-        btnAuth.style.opacity = '0.7';
-        errorMsg.style.display = 'none';
-
-        let result;
-        if (isSignUp) {
-          result = await supabase.auth.signUp({ email, password });
-        } else {
-          result = await supabase.auth.signInWithPassword({ email, password });
-        }
-
-        btnAuth.disabled = false;
-        btnAuth.style.opacity = '1';
-
-        if (result.error) {
-          errorMsg.textContent = result.error.message;
-          errorMsg.style.display = 'block';
-        } else {
-          if (isSignUp && result.data.user && !result.data.session) {
-            errorMsg.textContent = 'Sign up successful! Please check your email to confirm your account.';
-            errorMsg.style.color = '#34A853'; // Success green
-            errorMsg.style.display = 'block';
-          } else {
-            window.location.href = '/app.html';
-          }
-        }
+      // Initialize 3D scene and Authentication handlers
+      document.addEventListener('DOMContentLoaded', () => {
+        init3D();
+        initAuth();
       });
     </script>
   </body>
