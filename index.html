@@ -8,7 +8,7 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/vite.svg" />
     <meta name="theme-color" content="#050505" />
-    <title>Cadence AI - Login</title>
+    <title>Cadence AI - The gamified AI running coach</title>
     <style>
       /* Layout specific styles */
       body {
@@ -40,68 +40,47 @@
         .landing-container {
           justify-content: center;
           padding-left: 0;
+          text-align: center;
         }
       }
 
-      .login-card {
+      .marketing-content {
         width: 90%;
-        max-width: 400px;
-        padding: 40px 30px;
-        text-align: center;
+        max-width: 500px;
         position: relative;
         z-index: 10;
-        pointer-events: auto; /* Re-enable clicks for the form */
-        /* Enhanced glassmorphism */
-        background: rgba(20, 20, 20, 0.4);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        pointer-events: auto; /* Re-enable clicks */
       }
       
-      .logo-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
+      .hero-title {
+        font-size: 4rem;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: var(--muted);
         margin-bottom: 40px;
+        line-height: 1.6;
       }
-      .logo-svg {
-        width: 32px;
-        height: 32px;
-        fill: var(--primary);
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 3rem;
+        }
       }
-      .divider {
-        display: flex;
+      
+      .btn-cta {
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        border-radius: 999px;
+        display: inline-flex;
         align-items: center;
-        text-align: center;
-        color: var(--muted);
-        margin: 24px 0;
-        font-size: 0.9rem;
-      }
-      .divider::before, .divider::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid var(--outline);
-      }
-      .divider::before { margin-right: .25em; }
-      .divider::after { margin-left: .25em; }
-      .form-group {
-        margin-bottom: 16px;
-      }
-      .btn-full {
-        width: 100%;
-        margin-top: 8px;
-      }
-      .toggle-view {
-        margin-top: 24px;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      .toggle-view span {
-        color: var(--primary);
-        cursor: pointer;
-        font-weight: 700;
+        gap: 12px;
       }
     </style>
   </head>
@@ -109,68 +88,25 @@
     <!-- 3D Canvas Background -->
     <canvas id="hero-canvas"></canvas>
     
-    <!-- Login Interface Overlay -->
+    <!-- Marketing Content Overlay -->
     <div class="landing-container">
-      <div class="login-card surface-card animate-fade-in" style="border-radius: 24px;">
-        <div class="logo-container">
-          <!-- Bar chart logo SVG -->
-          <svg class="logo-svg" viewBox="0 0 24 24" style="fill: #6EFFC0">
-            <rect x="3" y="14" width="4" height="7" rx="1" />
-            <rect x="10" y="8" width="4" height="13" rx="1" />
-            <rect x="17" y="3" width="4" height="18" rx="1" />
+      <div class="marketing-content animate-fade-in">
+        <h1 class="hero-title heading">Run smarter.<br/>Level up.</h1>
+        <p class="hero-subtitle">Experience the first AI running coach that turns your real-world miles into virtual progress. Connect your favorite tracker and start your journey today.</p>
+        
+        <button id="btn-start" class="primary btn-cta hover-scale glow-primary">
+          Start Your Journey
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-          <h1 class="heading" style="margin:0; font-size: 1.8rem; letter-spacing: -0.5px;">Cadence</h1>
-        </div>
-        
-        <button id="btn-google" class="white btn-full hover-scale">
-          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-          </svg>
-          Continue with Google
         </button>
-
-        <button id="btn-apple" class="white btn-full hover-scale" style="margin-top: 12px; background: #000; color: #fff; border: 1px solid #333;">
-          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
-            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.15 2.95.89 3.67 2.06-3.02 1.66-2.52 5.81.45 7.07-.63 1.54-1.57 3.07-2.77 3.88zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.36 2.4-2.13 4.28-3.74 4.25z"/>
-          </svg>
-          Continue with Apple
-        </button>
-
-        <button id="btn-facebook" class="white btn-full hover-scale" style="margin-top: 12px; background: #1877F2; color: #fff; border: none;">
-          <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px; fill: #fff;">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
-          Continue with Facebook
-        </button>
-        
-        <div class="divider">or email</div>
-        
-        <div class="form-group">
-          <input type="email" placeholder="Email address" id="email" />
-        </div>
-        <div class="form-group">
-          <input type="password" placeholder="Password" id="password" />
-        </div>
-        
-        <button id="btn-auth" class="primary btn-full hover-scale">
-          Sign in &rarr;
-        </button>
-        
-        <div id="error-message" class="text-error" style="margin-top: 12px; font-size: 0.85rem; display: none;"></div>
-        
-        <div class="toggle-view">
-          <span id="toggle-text" style="color: var(--muted); font-weight: normal;">Don't have an account?</span> <span id="toggle-action">Sign Up</span>
-        </div>
       </div>
     </div>
     
     <script type="module">
       import './src/style.css';
-      import { init3D } from './src/hero3d.js';
-      import { initAuth } from './src/auth.js';
+      import { init3D, triggerZoomTransition } from './src/hero3d.js';
 
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -178,9 +114,19 @@
         });
       }
 
-      // Initialize 3D scene and Authentication handlers
+      // Initialize 3D scene
       init3D();
-      initAuth();
+
+      // Handle CTA click
+      const btnStart = document.getElementById('btn-start');
+      btnStart.addEventListener('click', async () => {
+        btnStart.style.opacity = '0.7';
+        btnStart.style.pointerEvents = 'none';
+        btnStart.innerHTML = 'Loading...';
+        
+        await triggerZoomTransition();
+        window.location.href = '/login.html';
+      });
     </script>
   </body>
 </html>

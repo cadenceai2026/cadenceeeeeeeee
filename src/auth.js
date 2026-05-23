@@ -1,5 +1,4 @@
 import { supabase } from './lib/supabase.js';
-import { triggerZoomTransition } from './hero3d.js';
 
 export function initAuth() {
   const emailInput = document.getElementById('email');
@@ -86,9 +85,8 @@ export function initAuth() {
         errorMsg.style.color = '#34A853'; // Success green
         errorMsg.style.display = 'block';
       } else {
-        // Successful login: trigger 3D transition before redirecting
+        // Successful login: redirect to app
         btnAuth.innerHTML = 'Connecting...';
-        await triggerZoomTransition();
         window.location.href = '/app.html';
       }
     }
