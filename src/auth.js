@@ -44,6 +44,14 @@ export function initAuth() {
   const btnFacebook = document.getElementById('btn-facebook');
   if (btnFacebook) btnFacebook.addEventListener('click', () => signInOAuth('facebook'));
 
+  const authForm = document.getElementById('auth-form');
+  if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      btnAuth.click();
+    });
+  }
+
   // Toggle Sign In / Sign Up
   toggleAction.addEventListener('click', () => {
     isSignUp = !isSignUp;

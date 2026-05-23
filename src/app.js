@@ -15,6 +15,9 @@ supabase.auth.getSession().then(({ data: { session } }) => {
   } else {
     document.body.style.display = '';
   }
+}).catch(err => {
+  console.error("Auth error:", err);
+  window.location.href = '/index.html';
 });
 
 // Setup auth state listener for logouts
