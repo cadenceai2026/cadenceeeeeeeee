@@ -68,3 +68,40 @@ create table public.battles (
 alter table public.battles enable row level security;
 create policy "Usuarios pueden ver las batallas en las que participan" on public.battles 
   for select using (auth.uid() = player1_id or auth.uid() = player2_id);
+
+-- 4. Tabla de Estadísticas de Usuario (XP y Ligas)
+create table public.user_stats (
+  user_id uuid references public.users(id) on delete cascade not null primary key,
+  current_xp integer default 0,
+  level integer default 1,
+  league text check (league in ('Bronce', 'Plata', 'Oro', 'Élite')) default 'Bronce',
+  weekly_xp_generated integer default 0,
+  last_updated timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+alter table public.user_stats enable row level security;
+create policy "Usuarios ven todas las stats para el leaderboard" on public.user_stats for select using (true);
+create policy "Solo backend actualiza stats" on public.user_stats for update using (auth.role() = 'service_role');
+
+-- 5. Tabla de Cosméticos Desbloqueables
+create table public.cosmetics (
+  id uuid default uuid_generate_v4() primary key,
+  name text not null,
+  type text check (type in ('avatar', 'border', 'tag')) not null,
+  unlock_level integer not null,
+  image_url text
+);
+
+create table public.user_cosmetics (
+  user_id uuid references public.users(id) on delete cascade not null,
+  cosmetic_id uuid references public.cosmetics(id) on delete cascade not null,
+  equipped boolean default false,
+  primary key (user_id, cosmetic_id)
+);
+
+alter table public.cosmetics enable row level security;
+create policy "Todos ven los cosméticos" on public.cosmetics for select using (true);
+
+alter table public.user_cosmetics enable row level security;
+create policy "Usuarios ven cosméticos de otros" on public.user_cosmetics for select using (true);
+create policy "Usuarios gestionan sus cosméticos" on public.user_cosmetics for all using (auth.uid() = user_id);

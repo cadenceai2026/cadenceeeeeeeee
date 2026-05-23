@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Cadence AI - Connect Strava</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Syne', 'sans-serif'],
+            body: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            cadence: '#6EFFC0',
+            strava: '#FC4C02'
+          },
+          borderRadius: {
+            DEFAULT: "9999px",
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #050505;
+      margin: 0;
+      color: white;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+    
+    .bg-glow-strava {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(252, 76, 2, 0.15) 0%, rgba(5,5,5,0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .liquid-glass-strong { 
+      background: rgba(255, 255, 255, 0.02);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: none;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(252, 76, 2, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-glass-strong::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg, rgba(252, 76, 2, 0.6) 0%, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.2) 80%, rgba(252, 76, 2, 0.6) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="font-body flex items-center justify-center min-h-screen relative">
+  <div class="bg-glow-strava"></div>
+
+  <div class="relative z-10 w-full max-w-lg px-6">
+    <div class="liquid-glass-strong rounded-[2rem] p-12 flex flex-col items-center text-center">
+      
+      <!-- Strava Icon -->
+      <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(252,76,2,0.3)]">
+        <svg viewBox="0 0 24 24" class="w-12 h-12 fill-strava">
+          <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+        </svg>
+      </div>
+
+      <h1 class="font-heading font-extrabold text-4xl text-white mb-4 tracking-tight">Conecta tu Motor</h1>
+      <p class="text-white/70 text-base mb-10 max-w-sm leading-relaxed">
+        Cadence AI necesita acceso a tu historial y métricas biométricas para generar el plan de entrenamiento perfecto basado en el método noruego.
+      </p>
+
+      <button id="btn-connect-strava" class="w-full bg-strava text-white font-bold rounded-full px-6 py-4 hover:bg-[#E34402] hover:scale-[1.02] transition-all flex items-center justify-center gap-3 text-lg shadow-[0_0_20px_rgba(252,76,2,0.4)]">
+        <span>Conectar con Strava</span>
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+
+      <div class="mt-6 text-white/40 text-xs">
+        Serás redirigido a la autorización oficial de Strava.
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './src/auth.js'; // Assuming auth.js exports supabase client
+
+    document.getElementById('btn-connect-strava').addEventListener('click', () => {
+      // Logic to trigger Strava OAuth via Supabase or backend
+      // After connection, redirect to calibration modal
+      window.location.href = '/calibration.html';
+    });
+  </script>
+</body>
+</html>
