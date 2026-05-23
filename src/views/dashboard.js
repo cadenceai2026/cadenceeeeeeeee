@@ -4,8 +4,8 @@ export function renderDashboard() {
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
       <h2 class="heading" style="font-size: 2rem; color: #fff;">Base de Operaciones</h2>
       <div class="liquid-glass" style="padding: 6px 12px; border-radius: var(--radius-pill); display: flex; align-items: center; gap: 8px;">
-        <div style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);"></div>
-        <span class="mono" style="font-size: 0.75rem; color: var(--primary); letter-spacing: 1px;">SINC: STRAVA</span>
+        <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+        <span class="mono" style="font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 1px;">SIN DATOS</span>
       </div>
     </div>
     
@@ -19,44 +19,32 @@ export function renderDashboard() {
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
         <span class="mono" style="font-size: 0.75rem; color: var(--primary);">0 XP</span>
         <div class="liquid-glass" style="flex: 1; height: 8px; border-radius: var(--radius-pill);">
-          <div style="width: 15%; height: 100%; background: var(--primary); border-radius: var(--radius-pill); box-shadow: 0 0 15px var(--primary);"></div>
+          <div style="width: 0%; height: 100%; background: var(--primary); border-radius: var(--radius-pill); box-shadow: 0 0 15px var(--primary);"></div>
         </div>
         <span class="mono" style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">1000 XP</span>
       </div>
-      <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">850 XP para el Nivel 2</div>
+      <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4);">1000 XP para el Nivel 2</div>
     </div>
     
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
-      <!-- Fatigue State -->
-      <div class="liquid-glass" style="border-radius: 1.25rem; padding: 24px;">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-          <svg style="width: 20px; height: 20px; color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    <!-- Empty State: Connect Strava Persuasive CTA -->
+    <div class="liquid-glass" style="border-radius: 1.5rem; padding: 40px 24px; text-align: center; position: relative; overflow: hidden; border: 1px solid rgba(252, 76, 2, 0.3);">
+      <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; background: radial-gradient(circle, rgba(252, 76, 2, 0.15) 0%, rgba(0,0,0,0) 70%); z-index: 0; pointer-events: none;"></div>
+      
+      <div style="position: relative; z-index: 1;">
+        <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+          <svg viewBox="0 0 24 24" class="w-8 h-8" fill="#FC4C02">
+            <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
           </svg>
-          <h3 class="heading" style="font-size: 1.1rem; color: #fff;">Estado de Fatiga</h3>
         </div>
-        <div style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Óptimo</div>
-        <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Tu Ratio Agudo:Crónico está en 1.1. Estás en la zona perfecta para asimilar carga de entrenamiento.</p>
-      </div>
-
-      <!-- Quick Stats -->
-      <div class="liquid-glass" style="border-radius: 1.25rem; padding: 24px;">
-         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-          <svg style="width: 20px; height: 20px; color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          <h3 class="heading" style="font-size: 1.1rem; color: #fff;">Esta Semana</h3>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-          <div>
-            <div style="font-size: 2rem; font-weight: 700; color: #fff; line-height: 1;">0.0</div>
-            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px;">km recorridos</div>
-          </div>
-          <div>
-            <div style="font-size: 2rem; font-weight: 700; color: #fff; line-height: 1;">0</div>
-            <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 4px;">sesiones</div>
-          </div>
-        </div>
+        
+        <h3 class="heading" style="font-size: 1.5rem; color: #fff; margin-bottom: 12px;">Enciende tu Motor</h3>
+        <p style="color: rgba(255,255,255,0.6); font-size: 0.95rem; max-width: 320px; margin: 0 auto 24px; line-height: 1.5;">
+          Connect Strava to unlock your AI Coach and start earning XP from your real-world workouts.
+        </p>
+        
+        <button id="btn-connect-strava" style="background: #FC4C02; color: #fff; font-weight: bold; padding: 14px 28px; border-radius: var(--radius-pill); border: none; font-size: 1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 20px rgba(252, 76, 2, 0.4);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          Connect Strava
+        </button>
       </div>
     </div>
   `;

@@ -246,21 +246,11 @@
           <span className="font-heading font-bold text-xl text-white">C</span>
         </div>
 
-        <div className="hidden md:flex liquid-glass px-1.5 py-1.5 rounded-full items-center gap-1">
-          {['Dashboard', 'AI Coach', 'Activities', 'Compete', 'Settings'].map((item) => (
-            <a key={item} href="#" className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors">
-              {item}
-            </a>
-          ))}
-          <button className="liquid-glass-strong rounded-full px-4 py-2 flex items-center gap-1.5 ml-2 group hover:scale-105 transition-transform">
-            <span className="text-cadence text-sm font-bold whitespace-nowrap">Connect Strava</span>
-            <svg className="w-4 h-4 text-cadence group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-            </svg>
-          </button>
+        <div className="flex items-center">
+          <a href="login.html" className="liquid-glass-strong rounded-full px-6 py-2.5 flex items-center gap-1.5 group hover:scale-105 transition-transform">
+            <span className="text-white text-sm font-bold whitespace-nowrap">Log In</span>
+          </a>
         </div>
-
-        <div className="w-12 h-12 invisible"></div>
       </nav>
     );
 
@@ -304,12 +294,12 @@
               transition={{ delay: 1.1, ease: "easeOut", duration: 0.8 }}
               className="flex flex-col sm:flex-row items-center gap-6 mt-8"
             >
-              <button className="liquid-glass-strong rounded-full px-6 py-3 flex items-center gap-2 group hover:scale-105 transition-transform">
-                <span className="text-sm font-bold text-cadence">Start Your Workout</span>
+              <a href="login.html" className="liquid-glass-strong rounded-full px-8 py-4 flex items-center gap-2 group hover:scale-105 transition-transform cursor-pointer">
+                <span className="text-base font-bold text-cadence">Start Free Trial</span>
                 <svg className="w-5 h-5 text-cadence fill-cadence" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-              </button>
+              </a>
 
               <a href="#" className="flex items-center gap-2 text-white hover:text-cadence transition-colors group">
                 <span className="text-sm font-medium">View Leaderboards</span>
