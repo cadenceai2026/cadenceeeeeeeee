@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cadence-v2';
+const CACHE_NAME = 'cadence-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -17,17 +17,18 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Network-first for HTML pages so updates always show
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-first for static assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).catch(() => {
-        // Fallback for offline navigation
-        if (event.request.mode === 'navigate') {
-          return caches.match('/app.html');
-        }
-      });
+      return cachedResponse || fetch(event.request);
     })
   );
 });
