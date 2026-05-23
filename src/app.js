@@ -1,3 +1,4 @@
+import './tailwind.css';
 import './style.css';
 import { renderDashboard } from './views/dashboard.js';
 import { renderCoach } from './views/coach.js';
