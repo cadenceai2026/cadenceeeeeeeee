@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cadence AI | AI Coach</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=Space+Grotesk:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3c4a42",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#3a3939",
+                        "background": "#131313",
+                        "on-background": "#e5e2e1",
+                        "secondary-fixed": "#e8ddff",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#47ffb8",
+                        "surface-variant": "#353534",
+                        "surface": "#131313",
+                        "secondary": "#cfbdff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "primary-fixed-dim": "#49dfa2",
+                        "tertiary": "#ffffff",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006c4a",
+                        "on-secondary-container": "#bdabec",
+                        "on-tertiary-fixed": "#002114",
+                        "tertiary-fixed-dim": "#00e29e",
+                        "on-primary-container": "#00734e",
+                        "primary-container": "#6bfcbd",
+                        "primary-fixed": "#6bfcbd",
+                        "on-primary": "#003824",
+                        "secondary-fixed-dim": "#cfbdff",
+                        "tertiary-fixed": "#47ffb8",
+                        "on-surface-variant": "#bbcabf",
+                        "on-tertiary": "#003824",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#00734e",
+                        "outline": "#86948a",
+                        "on-secondary-fixed-variant": "#4c3d76",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#35275e",
+                        "secondary-container": "#4c3d76",
+                        "on-primary-fixed": "#002114",
+                        "primary": "#ffffff",
+                        "on-secondary-fixed": "#201048",
+                        "surface-container-highest": "#353534",
+                        "on-primary-fixed-variant": "#005236",
+                        "surface-tint": "#49dfa2",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "margin-desktop": "48px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Space Grotesk"],
+                        "label-lg": ["JetBrains Mono"],
+                        "display-md": ["Syne"],
+                        "body-md": ["Space Grotesk"],
+                        "display-lg": ["Syne"],
+                        "headline-lg-mobile": ["Syne"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Syne"],
+                        "data-display": ["JetBrains Mono"],
+                        "title-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-md": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "data-display": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #131313; color: #e5e2e1; }
+        .glass { backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .neon-glow { filter: drop-shadow(0 0 8px rgba(107, 252, 189, 0.4)); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3c4a42; border-radius: 10px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- SideNavBar (Shared Anchor) -->
+<aside class="hidden md:flex flex-col h-screen w-20 md:w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-xl z-50">
+<div class="px-6 mb-10">
+<h1 class="font-display-lg text-headline-lg text-primary-fixed">Cadence AI</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">Level 42 Marathoner</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2 px-4">
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Active Tab: Coach -->
+<a class="bg-secondary-container text-on-secondary-container rounded-xl flex items-center gap-4 px-4 py-3 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-lg text-label-lg font-bold">Coach</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">directions_run</span>
+<span class="font-label-lg text-label-lg">Activities</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-lg text-label-lg">Compete</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-6">
+<button class="w-full bg-primary-fixed text-on-primary font-bold py-3 rounded-full neon-glow hover:opacity-90 transition-all font-label-lg text-label-lg">
+                Start Workout
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 flex flex-col h-screen relative bg-background">
+<!-- TopAppBar (Shared Anchor) -->
+<header class="bg-background/80 backdrop-blur-xl border-b border-outline-variant sticky top-0 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-40">
+<div class="flex items-center gap-4">
+<h2 class="font-syne text-headline-lg text-primary">Coach</h2>
+<span class="bg-primary-container text-on-primary-container px-3 py-0.5 rounded-full font-label-md text-[10px] tracking-widest uppercase">Elite v4.2</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer">bolt</span>
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a determined male athlete in his 30s with short hair and athletic gear. The lighting is dramatic and moody, with neon mint highlights reflecting on his skin, suggesting a futuristic training environment. The background is a dark, tech-infused gym setting with blurred UI elements and data screens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqn8Q-A9Gce016Z7p8xEoDJyRxqpq9wuMYmDo8RFG5BqxRjA8B96drPFFAYXzROpR7ql1NYISXNVJpn9lIWtRVYaunSjb5n50-CTX1ryHhaCAuZb4hI0N7CXuvABrgxmhSsxDw6ktiH6alh-po4gmm2ADhJwVncpqw7ClAObX0tbxz8F5DkOvhYFolYFgVamZfpTsp5DqfyIDYIq9ENyb4bpH7uqwDEdt7dq08uya3GlEtp1noFzzDKRRNkjtKPbPE2CPgQ3Fo06M"/>
+</div>
+</div>
+</header>
+<!-- Chat History Area -->
+<section class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-8 custom-scrollbar space-y-8 pb-40" id="chat-container">
+<!-- AI Message -->
+<div class="flex items-start gap-4 max-w-3xl">
+<div class="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0 border-primary-fixed/20 border">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div class="bg-surface-container-high rounded-tr-2xl rounded-br-2xl rounded-bl-2xl p-4 border border-outline-variant/30">
+<p class="font-body-md text-body-md leading-relaxed">
+                        Welcome back, Alex. I've analyzed your sleep data and yesterday's tempo run. Your recovery score is 84%. Ready to push for an interval session today, or should we focus on active recovery?
+                    </p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-start justify-end gap-4">
+<div class="bg-primary-container/20 text-on-background rounded-tl-2xl rounded-bl-2xl rounded-br-2xl p-4 border border-primary-container/30 max-w-[80%] md:max-w-xl">
+<p class="font-body-md text-body-md">
+                        Let's push it. I want to improve my 5k pace. Can you design a plan for the next 4 weeks?
+                    </p>
+</div>
+</div>
+<!-- AI Message with Structured Card -->
+<div class="flex items-start gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0 border-primary-fixed/20 border">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div class="space-y-4 flex-1">
+<div class="bg-surface-container-high rounded-tr-2xl rounded-br-2xl rounded-bl-2xl p-4 border border-outline-variant/30">
+<p class="font-body-md text-body-md mb-4">
+                            Excellent choice. Based on your current VO2 max, I've structured a 4-week "Velocity Peak" program. Here is your week 1 breakdown:
+                        </p>
+<!-- Workout Plan Card -->
+<div class="glass rounded-xl overflow-hidden border-t-2 border-t-primary-fixed">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low/50">
+<span class="font-label-lg text-label-lg text-primary-fixed">WEEK 1: AEROBIC POWER</span>
+<span class="font-data-display text-label-md bg-surface-variant px-2 py-0.5 rounded">34.5 KM TOTAL</span>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex justify-between items-center group cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+<div>
+<p class="font-title-lg text-title-lg">Mon: 400m Intervals</p>
+<p class="font-body-md text-body-md text-on-surface-variant">12 reps @ 4:10 min/km pace</p>
+</div>
+<span class="material-symbols-outlined text-primary-fixed">chevron_right</span>
+</div>
+<div class="w-full h-px bg-outline-variant"></div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+<div>
+<p class="font-title-lg text-title-lg">Wed: Tempo Threshold</p>
+<p class="font-body-md text-body-md text-on-surface-variant">8km @ 4:45 min/km</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<div class="w-full h-px bg-outline-variant"></div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-white/5 p-2 rounded transition-colors">
+<div>
+<p class="font-title-lg text-title-lg">Sat: Long Progression</p>
+<p class="font-body-md text-body-md text-on-surface-variant">16km progressive finish</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low/50">
+<button class="w-full py-2 bg-primary-container text-on-primary-container font-bold rounded-lg font-label-lg text-label-lg transition-transform active:scale-95">
+                                    Add to Calendar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Interaction Bar -->
+<footer class="absolute bottom-0 left-0 w-full p-4 md:p-8 bg-gradient-to-t from-background via-background/95 to-transparent">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Quick Chips -->
+<div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+<button class="shrink-0 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-full font-label-md text-label-md hover:border-primary-fixed transition-colors">
+                        Plan my week
+                    </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-full font-label-md text-label-md hover:border-primary-fixed transition-colors">
+                        Analyze last run
+                    </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-full font-label-md text-label-md hover:border-primary-fixed transition-colors">
+                        Recovery tips
+                    </button>
+<button class="shrink-0 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-full font-label-md text-label-md hover:border-primary-fixed transition-colors">
+                        Nutrition check
+                    </button>
+</div>
+<!-- Input Field -->
+<div class="relative flex items-center gap-3">
+<div class="flex-1 glass rounded-2xl p-1 flex items-center pr-4">
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-lg text-body-lg px-6 py-3 text-on-surface placeholder:text-on-surface-variant/50" placeholder="Message Cadence Coach..." type="text"/>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors">mic</button>
+</div>
+<button class="w-14 h-14 bg-primary-fixed text-on-primary rounded-full flex items-center justify-center neon-glow shadow-xl active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700;">send</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- Mobile BottomNavBar (Shared Anchor) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-background/90 backdrop-blur-2xl border-t border-white/10 z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-md text-[10px]">Coach</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="font-label-md text-[10px]">Run</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-[10px]">Social</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-[10px]">Settings</span>
+</a>
+</nav>
+</main>
+<script>
+        // Micro-interactions
+        const input = document.querySelector('input');
+        const sendBtn = document.querySelector('button.bg-primary-fixed');
+        const chatContainer = document.getElementById('chat-container');
+
+        const scrollToBottom = () => {
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        };
+
+        // Scroll to bottom on load
+        window.addEventListener('load', scrollToBottom);
+
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('border-primary-fixed/50');
+        });
+
+        input.addEventListener('blur', () => {
+            input.parentElement.classList.remove('border-primary-fixed/50');
+        });
+
+        // Simple mock behavior for send button
+        sendBtn.addEventListener('click', () => {
+            if (input.value.trim() !== "") {
+                const userMsg = input.value;
+                input.value = "";
+                
+                // Construct user message element
+                const msgDiv = document.createElement('div');
+                msgDiv.className = "flex items-start justify-end gap-4 opacity-0 transition-opacity duration-300";
+                msgDiv.innerHTML = `
+                    <div class="bg-primary-container/20 text-on-background rounded-tl-2xl rounded-bl-2xl rounded-br-2xl p-4 border border-primary-container/30 max-w-[80%] md:max-w-xl">
+                        <p class="font-body-md text-body-md">${userMsg}</p>
+                    </div>
+                `;
+                chatContainer.appendChild(msgDiv);
+                setTimeout(() => {
+                    msgDiv.classList.remove('opacity-0');
+                    scrollToBottom();
+                }, 100);
+            }
+        });
+
+        // Trigger send on enter
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBtn.click();
+        });
+    </script>
+</body></html>

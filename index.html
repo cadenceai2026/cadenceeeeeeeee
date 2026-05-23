@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Cadence AI - The gamified AI running coach" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/vite.svg" />
+    <meta name="theme-color" content="#050505" />
+    <title>Cadence AI - Login</title>
+    <style>
+      /* Inline specific login styles */
+      body {
+        margin: 0;
+        background-color: #050505;
+        background-image: radial-gradient(rgba(110, 255, 192, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .orb {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(110, 255, 192, 0.4) 0%, transparent 70%);
+        top: -100px;
+        right: -100px;
+        border-radius: 50%;
+        filter: blur(40px);
+        animation: pulse 4s infinite alternate;
+      }
+      @keyframes pulse {
+        from { transform: scale(1); opacity: 0.6; }
+        to { transform: scale(1.2); opacity: 1; }
+      }
+      .login-card {
+        width: 90%;
+        max-width: 400px;
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 40px;
+      }
+      .logo-svg {
+        width: 32px;
+        height: 32px;
+        fill: var(--primary);
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--muted);
+        margin: 24px 0;
+        font-size: 0.9rem;
+      }
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid var(--outline);
+      }
+      .divider::before { margin-right: .25em; }
+      .divider::after { margin-left: .25em; }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .btn-full {
+        width: 100%;
+        margin-top: 8px;
+      }
+      .toggle-view {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .toggle-view span {
+        color: var(--primary);
+        cursor: pointer;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="orb"></div>
+    
+    <div class="login-card glass surface-card animate-fade-in">
+      <div class="logo-container">
+        <!-- Bar chart logo SVG -->
+        <svg class="logo-svg" viewBox="0 0 24 24" style="fill: #6EFFC0">
+          <rect x="3" y="14" width="4" height="7" rx="1" />
+          <rect x="10" y="8" width="4" height="13" rx="1" />
+          <rect x="17" y="3" width="4" height="18" rx="1" />
+        </svg>
+        <h1 class="heading" style="margin:0; font-size: 1.8rem; letter-spacing: -0.5px;">Cadence</h1>
+      </div>
+      
+      <button class="white btn-full hover-scale">
+        <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Continue with Google
+      </button>
+      
+      <div class="divider">or email</div>
+      
+      <div class="form-group">
+        <input type="email" placeholder="Email address" id="email" />
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" id="password" />
+      </div>
+      
+      <button id="btn-auth" class="primary btn-full hover-scale">
+        Sign in &rarr;
+      </button>
+      
+      <div id="error-message" class="text-error" style="margin-top: 12px; font-size: 0.85rem; display: none;"></div>
+      
+      <div class="toggle-view">
+        <span id="toggle-text" style="color: var(--muted); font-weight: normal;">Don't have an account?</span> <span id="toggle-action">Sign Up</span>
+      </div>
+    </div>
+    
+    <script type="module">
+      import './src/style.css';
+      import { supabase } from './src/lib/supabase.js';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+
+      // Supabase Auth Logic
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const btnAuth = document.getElementById('btn-auth');
+      const toggleAction = document.getElementById('toggle-action');
+      const toggleText = document.getElementById('toggle-text');
+      const errorMsg = document.getElementById('error-message');
+
+      let isSignUp = false;
+
+      // Check if user is already logged in
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          window.location.href = '/app.html';
+        }
+      });
+
+      toggleAction.addEventListener('click', () => {
+        isSignUp = !isSignUp;
+        if (isSignUp) {
+          btnAuth.innerHTML = 'Sign up &rarr;';
+          toggleText.textContent = 'Already have an account?';
+          toggleAction.textContent = 'Sign In';
+        } else {
+          btnAuth.innerHTML = 'Sign in &rarr;';
+          toggleText.textContent = "Don't have an account?";
+          toggleAction.textContent = 'Sign Up';
+        }
+        errorMsg.style.display = 'none';
+      });
+
+      btnAuth.addEventListener('click', async () => {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        
+        if (!email || !password) {
+          errorMsg.textContent = 'Please enter email and password.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+
+        btnAuth.disabled = true;
+        btnAuth.style.opacity = '0.7';
+        errorMsg.style.display = 'none';
+
+        let result;
+        if (isSignUp) {
+          result = await supabase.auth.signUp({ email, password });
+        } else {
+          result = await supabase.auth.signInWithPassword({ email, password });
+        }
+
+        btnAuth.disabled = false;
+        btnAuth.style.opacity = '1';
+
+        if (result.error) {
+          errorMsg.textContent = result.error.message;
+          errorMsg.style.display = 'block';
+        } else {
+          window.location.href = '/app.html';
+        }
+      });
+    </script>
+  </body>
+</html>

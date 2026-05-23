@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<title>Cadence AI - Activities</title>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .neon-glow-border {
+      box-shadow: 0 0 15px rgba(107, 255, 189, 0.1);
+    }
+    .active-glow {
+      box-shadow: 0 0 20px rgba(107, 255, 189, 0.3);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #131313;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3c4a42;
+      border-radius: 10px;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline-variant": "#3c4a42",
+            "surface-container-high": "#2a2a2a",
+            "surface-bright": "#3a3939",
+            "background": "#131313",
+            "on-background": "#e5e2e1",
+            "secondary-fixed": "#e8ddff",
+            "surface-container-low": "#1c1b1b",
+            "tertiary-container": "#47ffb8",
+            "surface-variant": "#353534",
+            "surface": "#131313",
+            "secondary": "#cfbdff",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a",
+            "inverse-on-surface": "#313030",
+            "surface-dim": "#131313",
+            "primary-fixed-dim": "#49dfa2",
+            "tertiary": "#ffffff",
+            "on-error": "#690005",
+            "inverse-primary": "#006c4a",
+            "on-secondary-container": "#bdabec",
+            "on-tertiary-fixed": "#002114",
+            "tertiary-fixed-dim": "#00e29e",
+            "on-primary-container": "#00734e",
+            "primary-container": "#6bfcbd",
+            "primary-fixed": "#6bfcbd",
+            "on-primary": "#003824",
+            "secondary-fixed-dim": "#cfbdff",
+            "tertiary-fixed": "#47ffb8",
+            "on-surface-variant": "#bbcabf",
+            "on-tertiary": "#003824",
+            "inverse-surface": "#e5e2e1",
+            "on-tertiary-container": "#00734e",
+            "outline": "#86948a",
+            "on-secondary-fixed-variant": "#4c3d76",
+            "on-surface": "#e5e2e1",
+            "surface-container-lowest": "#0e0e0e",
+            "on-secondary": "#35275e",
+            "secondary-container": "#4c3d76",
+            "on-primary-fixed": "#002114",
+            "primary": "#ffffff",
+            "on-secondary-fixed": "#201048",
+            "surface-container-highest": "#353534",
+            "on-primary-fixed-variant": "#005236",
+            "surface-tint": "#49dfa2",
+            "surface-container": "#201f1f",
+            "error": "#ffb4ab"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "20px",
+            "margin-desktop": "48px",
+            "lg": "24px",
+            "gutter": "16px",
+            "xl": "32px",
+            "base": "4px",
+            "sm": "12px",
+            "xs": "8px",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "body-lg": ["Space Grotesk"],
+            "label-lg": ["JetBrains Mono"],
+            "display-md": ["Syne"],
+            "body-md": ["Space Grotesk"],
+            "display-lg": ["Syne"],
+            "headline-lg-mobile": ["Syne"],
+            "label-md": ["JetBrains Mono"],
+            "headline-lg": ["Syne"],
+            "data-display": ["JetBrains Mono"],
+            "title-lg": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+            "display-md": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+            "data-display": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- SideNavBar (Navigation Rail for Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-xl bg-surface-container-lowest border-r border-outline-variant h-screen w-20 md:w-64 fixed left-0 top-0 z-50">
+<div class="px-6 mb-10">
+<span class="font-display-lg text-headline-lg text-primary-fixed">Cadence AI</span>
+</div>
+<nav class="flex-1 flex flex-col gap-2 px-4">
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-lg text-label-lg">Coach</span>
+</a>
+<!-- Active Link -->
+<a class="bg-secondary-container text-on-secondary-container rounded-xl flex items-center gap-4 px-4 py-3 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="directions_run" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+<span class="font-label-lg text-label-lg">Activities</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-lg text-label-lg">Compete</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300 rounded-xl mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+<div class="mt-8 px-6 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<img alt="User profile avatar" class="rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwrgmVE-r4NslvbS5GgXJomLkpzoGFEacYPF37pcZr6VHn9kc4PGw2_Bbdj4tNv-eRqUellcvqQ-aIdEOGSuqMn2lZjlcrcRmRZl8gG-HovUgsO6oVOHuXp3mJpJwECQq8FU9EaAzoWoSC22A8GGold5ILffupvZsP-0vl5B_04QcZRg0LN3eHYvQxjFLeq4uDm414oYUykjcjcapPHvKjWRZ-D_t5pRnE8Gh_sw7rAskmJZVrXjM8mS-GvDq6AoZEqtwjnbhJobA"/>
+</div>
+<div class="hidden md:block">
+<p class="font-label-lg text-label-lg text-on-surface">Level 42</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Marathoner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Mobile & Sticky Title) -->
+<header class="docked full-width top-0 sticky bg-background/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-40">
+<div class="flex items-center gap-4">
+<h1 class="font-syne text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tighter">Activities</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" data-icon="bolt">bolt</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="md:ml-64 pb-24 md:pb-12 min-h-screen">
+<!-- Filter Section -->
+<section class="px-margin-mobile md:px-margin-desktop py-6 overflow-x-auto">
+<div class="flex gap-3 min-w-max">
+<button class="filter-chip px-6 py-2 rounded-full font-label-lg text-label-lg bg-primary-container text-on-primary-container active-glow transition-all" onclick="filterActivities('all')">All</button>
+<button class="filter-chip px-6 py-2 rounded-full font-label-lg text-label-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant/30 transition-all" onclick="filterActivities('runs')">Runs</button>
+<button class="filter-chip px-6 py-2 rounded-full font-label-lg text-label-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant/30 transition-all" onclick="filterActivities('rides')">Rides</button>
+<button class="filter-chip px-6 py-2 rounded-full font-label-lg text-label-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant/30 transition-all" onclick="filterActivities('workouts')">Workouts</button>
+</div>
+</section>
+<!-- Activity Feed -->
+<div class="px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-6" id="activity-feed">
+<!-- Activity Card 1 -->
+<article class="activity-card runs glass-card rounded-xl overflow-hidden hover:neon-glow-border transition-all group border-t-2 border-primary-fixed">
+<div class="flex flex-col md:flex-row">
+<div class="relative w-full md:w-48 h-48 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A minimalist overhead view of a digital map showing a winding running path through a neon-lit city grid. The map style is high-contrast dark mode with glowing mint green routes and subtle topographic line overlays. The aesthetic is clean, technological, and athletic, fitting a professional training application's interface." data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQvdz9O9pIu1mrQLNjQyLIXxsUZ7nKd_oRuJNWSd4CVGj3AQnmpaVqhUDArod6tQZsuDvX2oRX74xEkq2DcsZnON3VT4djpCORZAcXaLjfaLGzCiaoZEzCyb2RFLZmOE3kLEC73o5J3PPM6-S-7z6ISAhx0k5Zy9G9bBl98GMTdILbnO42TBDW2uYdgHO1DdqYOHrJKW6CzOXmIz0d1WtKIRuV75-ThMGpQppdbz_uOCerU6vEabAT_IVincIng3QFb2IGXNtKuOE"/>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+              +120 XP
+            </div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="directions_run">directions_run</span>
+<span class="text-on-surface-variant font-label-md uppercase tracking-widest">Morning Tempo Run</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Ocean Beach Trail</h3>
+</div>
+<span class="text-on-surface-variant font-label-md">2h ago</span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Distance</p>
+<p class="font-data-display text-data-display text-primary-fixed">12.4<span class="text-sm ml-0.5">km</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Pace</p>
+<p class="font-data-display text-data-display">4:42<span class="text-sm ml-0.5">/km</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Avg HR</p>
+<p class="font-data-display text-data-display">158<span class="text-sm ml-0.5">bpm</span></p>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">Tempo</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">High Elevation</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Activity Card 2 -->
+<article class="activity-card rides glass-card rounded-xl overflow-hidden hover:neon-glow-border transition-all group border-t-2 border-primary-fixed">
+<div class="flex flex-col md:flex-row">
+<div class="relative w-full md:w-48 h-48 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A stylized satellite view of a cycling route through a mountainous terrain, rendered in a dark-mode neon athletic aesthetic. The path is highlighted in a vibrant, glowing mint green against a deep charcoal and black topographic map. The lighting is low-key with high-contrast elements, creating a futuristic and professional sports tracking visual." data-location="Austin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA77SMyO4BcuIYFLa75v9hzwWo8MQEjlQTjwj7JimPKGterligC6MNamtiDBUdPcZKDuf8iWzvJoF4pwWzvK-9zCaSmyZCf9mrcu4ZUdrkfw2JDuUXmVryX32IVRvkP6N9lMHaLLMr6nsB-eod27QyGASilsb08KeKhfa0ThMlN0e5wIXq349UGgm7o3fKPR6qEteVdU49zEoBeL8FICys8dLESrVPwshYIsMZ3D9uZ1ycgiRzNJulgCS6P0fhVJsdjnHU05vGEmLI"/>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+              +250 XP
+            </div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="directions_bike">directions_bike</span>
+<span class="text-on-surface-variant font-label-md uppercase tracking-widest">Endurance Ride</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Canyon Loop Sprint</h3>
+</div>
+<span class="text-on-surface-variant font-label-md">Yesterday</span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Distance</p>
+<p class="font-data-display text-data-display text-primary-fixed">48.2<span class="text-sm ml-0.5">km</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Speed</p>
+<p class="font-data-display text-data-display">32.4<span class="text-sm ml-0.5">km/h</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Power</p>
+<p class="font-data-display text-data-display">210<span class="text-sm ml-0.5">w</span></p>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">PR EARNED</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">Endurance</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Activity Card 3 -->
+<article class="activity-card workouts glass-card rounded-xl overflow-hidden hover:neon-glow-border transition-all group border-t-2 border-primary-fixed">
+<div class="flex flex-col md:flex-row">
+<div class="relative w-full md:w-48 h-48 md:h-auto overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-6xl opacity-20" data-icon="fitness_center">fitness_center</span>
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+              +85 XP
+            </div>
+</div>
+<div class="p-lg flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="fitness_center">fitness_center</span>
+<span class="text-on-surface-variant font-label-md uppercase tracking-widest">Strength &amp; Mobility</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Core Blast Phase II</h3>
+</div>
+<span class="text-on-surface-variant font-label-md">2 days ago</span>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Duration</p>
+<p class="font-data-display text-data-display text-primary-fixed">45<span class="text-sm ml-0.5">min</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Volume</p>
+<p class="font-data-display text-data-display">2.4<span class="text-sm ml-0.5">t</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Intensity</p>
+<p class="font-data-display text-data-display">High</p>
+</div>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">Coach Pick</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant text-[10px] font-label-md uppercase">Core Strength</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State Variant (Hidden by default, shown via filter logic if needed) -->
+<div class="hidden px-margin-mobile flex flex-col items-center justify-center py-32 text-center" id="empty-state">
+<div class="w-24 h-24 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl" data-icon="history">history</span>
+</div>
+<h2 class="font-display-md text-headline-lg text-on-surface mb-2">No activities yet</h2>
+<p class="text-on-surface-variant font-body-lg max-w-sm mb-8">It looks like you haven't recorded any sessions in this category yet. Time to hit the road!</p>
+<button class="px-8 py-3 bg-primary-container text-on-primary-container font-label-lg rounded-full active-glow flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+        START WORKOUT
+      </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-background/90 backdrop-blur-2xl border-t border-white/10 shadow-2xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md-mobile text-[10px] mt-1 uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-label-md-mobile text-[10px] mt-1 uppercase">Coach</span>
+</a>
+<div class="relative -top-6">
+<button class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container shadow-lg flex items-center justify-center active:scale-90 transition-all">
+<span class="material-symbols-outlined text-3xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</button>
+</div>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="directions_run">directions_run</span>
+<span class="font-label-md-mobile text-[10px] mt-1 uppercase">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md-mobile text-[10px] mt-1 uppercase">Setup</span>
+</a>
+</nav>
+<script>
+    function filterActivities(category) {
+      const cards = document.querySelectorAll('.activity-card');
+      const feed = document.getElementById('activity-feed');
+      const empty = document.getElementById('empty-state');
+      const buttons = document.querySelectorAll('.filter-chip');
+      
+      // Update button styles
+      buttons.forEach(btn => {
+        if (btn.innerText.toLowerCase() === category) {
+          btn.classList.add('bg-primary-container', 'text-on-primary-container', 'active-glow');
+          btn.classList.remove('border', 'border-outline-variant', 'text-on-surface-variant');
+        } else {
+          btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'active-glow');
+          btn.classList.add('border', 'border-outline-variant', 'text-on-surface-variant');
+        }
+      });
+
+      let visibleCount = 0;
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        feed.classList.add('hidden');
+        empty.classList.remove('hidden');
+      } else {
+        feed.classList.remove('hidden');
+        empty.classList.add('hidden');
+      }
+    }
+  </script>
+</body></html>

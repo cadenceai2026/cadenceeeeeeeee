@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unlock Elite - Cadence AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Space+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3c4a42",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#3a3939",
+                        "background": "#050505",
+                        "on-background": "#e5e2e1",
+                        "secondary-fixed": "#e8ddff",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#47ffb8",
+                        "surface-variant": "#353534",
+                        "surface": "#131313",
+                        "secondary": "#cfbdff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#313030",
+                        "surface-dim": "#131313",
+                        "primary-fixed-dim": "#49dfa2",
+                        "tertiary": "#ffffff",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006c4a",
+                        "on-secondary-container": "#bdabec",
+                        "on-tertiary-fixed": "#002114",
+                        "tertiary-fixed-dim": "#00e29e",
+                        "on-primary-container": "#00734e",
+                        "primary-container": "#6bfcbd",
+                        "primary-fixed": "#6bfcbd",
+                        "on-primary": "#003824",
+                        "secondary-fixed-dim": "#cfbdff",
+                        "tertiary-fixed": "#47ffb8",
+                        "on-surface-variant": "#bbcabf",
+                        "on-tertiary": "#003824",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#00734e",
+                        "outline": "#86948a",
+                        "on-secondary-fixed-variant": "#4c3d76",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#35275e",
+                        "secondary-container": "#4c3d76",
+                        "on-primary-fixed": "#002114",
+                        "primary": "#ffffff",
+                        "on-secondary-fixed": "#201048",
+                        "surface-container-highest": "#353534",
+                        "on-primary-fixed-variant": "#005236",
+                        "surface-tint": "#49dfa2",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "margin-desktop": "48px",
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Space Grotesk"],
+                        "label-lg": ["JetBrains Mono"],
+                        "display-md": ["Syne"],
+                        "body-md": ["Space Grotesk"],
+                        "display-lg": ["Syne"],
+                        "headline-lg-mobile": ["Syne"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Syne"],
+                        "data-display": ["JetBrains Mono"],
+                        "title-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-md": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "data-display": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(107, 252, 189, 0.3);
+        }
+        .elite-gradient {
+            background: linear-gradient(135deg, #131313 0%, #003824 100%);
+        }
+        .sparkle-anim {
+            animation: sparkle 2s infinite ease-in-out;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-background/80 backdrop-blur-xl border-b border-outline-variant docked full-width top-0 sticky flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-50">
+<div class="font-display-md text-display-md text-primary-fixed uppercase tracking-tighter">Cadence AI</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors">bolt</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-Yqw0Os_uzTBCjAM_O7i_V4_mw8_Ua_cKpWpB_0ZhoB4mVp44Kc13BhS8mWa56A9zt-8g1K1oK5a4i--XxHnS_akrHnV-suKoNPi0yKFKzlhhfEcyBaIMtJEoN-OMnkndfz1T7UaWr9YC9mI5hhloEkbIpmLARK-DJh8LvdNYZ_SRtydG1KDGO2OXnwY9U6lzbBnbYdV5OipoGQ0nxcinZgStfXqLP9S0q2wjwBMNnWBnm_E4aA733gfcWFj6Ntvvb1e1Kc4d6QU"/>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen w-20 md:w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant py-xl z-40">
+<div class="px-6 mb-12">
+<div class="font-display-lg text-headline-lg text-primary-fixed">Cadence AI</div>
+<div class="font-body-md text-body-md text-on-surface-variant mt-2">Level 42 Marathoner</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-lg text-label-lg">Coach</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">directions_run</span>
+<span class="font-label-lg text-label-lg">Activities</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-3 hover:bg-surface-variant/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-lg text-label-lg">Compete</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container rounded-xl flex items-center gap-4 px-4 py-3 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-primary-fixed text-on-primary font-label-lg text-label-lg py-4 rounded-full neon-glow hover:opacity-90 transition-all">Start Workout</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 pb-32">
+<section class="max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<!-- Header with Sparkles -->
+<div class="text-center relative mb-16">
+<span class="material-symbols-outlined absolute -top-8 left-1/4 text-primary-fixed sparkle-anim text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="material-symbols-outlined absolute -top-4 right-1/4 text-primary-fixed sparkle-anim text-2xl" style="animation-delay: 0.5s; font-variation-settings: 'FILL' 1;">colors_spark</span>
+<span class="material-symbols-outlined absolute top-12 left-1/3 text-primary-fixed sparkle-anim text-xl" style="animation-delay: 1.2s; font-variation-settings: 'FILL' 1;">brightness_high</span>
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mb-4">Unlock Elite</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                        Elevate your performance with AI-driven physiological modeling and real-time biometric coaching.
+                    </p>
+</div>
+<!-- Pricing Grid -->
+<div class="grid md:grid-cols-2 gap-8 mb-24">
+<!-- Free Plan Card -->
+<div class="bg-surface rounded-3xl p-8 border border-outline-variant flex flex-col hover:border-outline transition-colors group">
+<div class="mb-8">
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Standard</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="font-display-md text-display-md text-white">$0</span>
+<span class="font-body-md text-body-md text-on-surface-variant">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12 flex-1">
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">check_circle</span>
+<span class="font-body-md text-body-md">Basic Activity Tracking</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">check_circle</span>
+<span class="font-body-md text-body-md">Community Leaderboards</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-outline">check_circle</span>
+<span class="font-body-md text-body-md">Manual Workout Entry</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface-variant opacity-50">
+<span class="material-symbols-outlined">block</span>
+<span class="font-body-md text-body-md">AI Coaching Engine</span>
+</li>
+</ul>
+<button class="w-full py-4 px-8 rounded-full border-1.5 border-outline-variant font-label-lg text-label-lg text-white hover:bg-surface-variant/20 transition-all">Current Plan</button>
+</div>
+<!-- Elite Plan Card -->
+<div class="elite-gradient relative rounded-3xl p-8 border border-primary-fixed/30 flex flex-col neon-glow overflow-hidden group">
+<div class="absolute top-0 right-0 bg-primary-fixed text-on-primary font-label-md text-label-md px-6 py-2 rounded-bl-2xl font-bold uppercase tracking-tighter">
+                            MOST POPULAR
+                        </div>
+<div class="mb-8">
+<span class="font-label-lg text-label-lg text-primary-fixed uppercase tracking-widest">Elite Performance</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="font-display-md text-display-md text-white">$14.99</span>
+<span class="font-body-md text-body-md text-on-surface-variant">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12 flex-1">
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md">Adaptive AI Coach (Hyper-Personalized)</span>
+</li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md">Advanced VO2 Max Forecasting</span>
+</li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md">Real-time Biometric Feedback loops</span>
+</li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md">Custom Training Architecture</span>
+</li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-md text-body-md">Exclusive Pro Kit Rewards</span>
+</li>
+</ul>
+<button class="w-full py-4 px-8 rounded-full bg-primary-fixed text-on-primary font-label-lg text-label-lg font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary-fixed/20">Upgrade Now</button>
+</div>
+</div>
+<!-- Feature Comparison Checklist -->
+<div class="glass rounded-3xl p-margin-mobile md:p-xl mb-16 overflow-x-auto">
+<h3 class="font-headline-lg text-headline-lg text-white mb-8 text-center">Compare Experience</h3>
+<table class="w-full min-w-[600px]">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="text-left py-6 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Capabilities</th>
+<th class="text-center py-6 font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Free</th>
+<th class="text-center py-6 font-label-lg text-label-lg text-primary-fixed uppercase tracking-widest">Elite</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-outline-variant/30">
+<td class="py-6">Smart Watch Integration</td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-outline">check</span></td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-primary-fixed">check</span></td>
+</tr>
+<tr class="border-b border-outline-variant/30">
+<td class="py-6">Data Export (JSON/GPX)</td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-outline">check</span></td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-primary-fixed">check</span></td>
+</tr>
+<tr class="border-b border-outline-variant/30">
+<td class="py-6">AI Voice Coach (In-Ear)</td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-outline-variant opacity-30">close</span></td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-primary-fixed">check</span></td>
+</tr>
+<tr class="border-b border-outline-variant/30">
+<td class="py-6">Predictive Injury Prevention</td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-outline-variant opacity-30">close</span></td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-primary-fixed">check</span></td>
+</tr>
+<tr class="">
+<td class="py-6">Sleep &amp; Recovery Insights</td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-outline-variant opacity-30">close</span></td>
+<td class="text-center py-6"><span class="material-symbols-outlined text-primary-fixed">check</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Money Back Guarantee -->
+<div class="flex flex-col items-center text-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                        30-DAY MONEY BACK GUARANTEE
+                    </div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg">
+                        Not feeling the progress? Cancel anytime within your first month for a full refund. No questions asked, just results.
+                    </p>
+<div class="flex gap-4">
+<img alt="Visa" class="h-6 opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSvAqN1HWGaB87TnJgOlCQPZTXpiLmbCh_9LQK5g6HLvRwI3QZlEgVMn_f7rwQtBQ2DyW80ixf8RpM86sZIYFEuuS7XuQQDsk4AOD42h9nO7jjOfkjfmS_I8XIx_gLktd9rVhp_897H6RPADSQnsaITOPz7lcQ4UiDLuE-I5Ohcltr6dfy9fd0ih2FJJdbjZ9mpXdeZmaYqpn3yyCYHkPKfOk_nWc_eN3eBxUty83ha7UbsZfwSI0srBKpZ0twvXtqv3NMEZoWRQE"/>
+<img alt="Mastercard" class="h-6 opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3CqCBI0S5uZIqV0Y7OVSc3CVeIVvpn4VA5ufJVRZAwWqq9ZUBWhZxXczyAsjvGmo0sdnWrLgrN3_gWrZXFUGeV4BvfQJM9Gr_Lb3fj6-TCasOmJ0GpvhQsXMuWuSVj5Hl8fvE-Sn00lMXiJBMHleWv16Cq2kQO-mip8wfDCQ_ol1nHIBJccDf9exycY8ItUBJBxka9-Uu-RnVafetLEAvz7Zmt_Z1IDnNXgokR9iOHkm_NSWilN1M9iMtL-T1K6IX7FF3n65w9YM"/>
+<img alt="Apple Pay" class="h-6 opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsmXDcqdEKzFlQssZ0AxcmJgBpKWlt2fVDBvIgOc-rj3cYUP2eHT7bEUydFsD9D_czUhAjM40kQZdpa1J2Vt93UiRs7JiGo2s0fVCDYR_rFTsHYXiLCzyeAWGDOj_IE8_IJbEO4K9rDF8a3Kz_4dVYj1gMWPpxt327A8Swmvh_oamT8tYqhOtAIaMxKU_Quds2laL5HDODTLqoMZPYkEPTBC1Y6FOJSpuoDVWXSEM9-YPZveIqy-ocMwehxt7zsNiggIN_haY25-Q"/>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-background/90 backdrop-blur-2xl border-t border-white/10 z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-md text-label-md">Coach</span>
+</a>
+<div class="bg-primary-container text-on-primary-container rounded-full w-14 h-14 flex items-center justify-center -mt-8 shadow-lg neon-glow">
+<span class="material-symbols-outlined text-3xl">play_circle</span>
+</div>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Social</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for pricing card hover glow intensity
+        document.querySelectorAll('.elite-gradient').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
