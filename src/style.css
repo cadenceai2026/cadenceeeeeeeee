@@ -275,3 +275,230 @@ button.white {
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 30px 30px;
 }
+
+/* --- SPA Layout & Sidebar --- */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--outline);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  z-index: 100;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.expanded {
+  width: 240px;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar-toggle-btn {
+  background: transparent;
+  padding: 8px;
+  color: var(--muted);
+  border-radius: var(--radius-pill);
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--surface-high);
+  color: var(--primary);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  margin: 4px 12px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nav-item.active {
+  background: rgba(110, 255, 192, 0.1);
+  color: var(--primary);
+}
+
+.nav-item:hover:not(.active) {
+  background: var(--surface-high);
+}
+
+.nav-icon-container {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.sidebar.expanded .nav-label {
+  opacity: 1;
+  margin-left: 16px;
+  font-weight: 500;
+  transition: opacity 0.3s 0.1s ease;
+}
+
+.sidebar.collapsed .nav-label {
+  opacity: 0;
+  width: 0;
+  display: none;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.view-container {
+  display: none;
+  padding: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease;
+}
+
+.view-container.active {
+  display: block;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--outline);
+    height: 70px;
+    z-index: 100;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .mobile-nav .nav-item {
+    margin: 0;
+    flex-direction: column;
+    padding: 8px;
+    border-radius: 12px;
+  }
+  .main-content { padding-bottom: 70px; }
+}
+
+/* --- Components --- */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-4 { gap: 1rem; }
+.p-2 { padding: 0.5rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-8 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.text-center { text-align: center; }
+.text-sm { font-size: 0.875rem; }
+.text-2xl { font-size: 1.5rem; }
+
+/* Dashboard XP Bar */
+.xp-bar-container {
+  height: 24px;
+  border-radius: var(--radius-pill);
+  width: 100%;
+}
+.xp-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.5s ease-out;
+}
+
+/* Chat Layout */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 400px;
+}
+.chat-bubble {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+}
+.chat-bubble.ai {
+  align-self: flex-start;
+  background: rgba(110, 255, 192, 0.1);
+  border: 1px solid rgba(110, 255, 192, 0.2);
+  border-bottom-left-radius: 4px;
+}
+.chat-bubble.user {
+  align-self: flex-end;
+  background: var(--surface-high);
+  border: 1px solid var(--outline);
+  border-bottom-right-radius: 4px;
+}
+
+/* Activities Grid */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Tabs */
+.tab-btn {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.tab-btn.active {
+  color: var(--primary);
+  border-color: rgba(110, 255, 192, 0.3);
+}

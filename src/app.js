@@ -23,6 +23,21 @@ supabase.auth.onAuthStateChange((event, session) => {
 document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.nav-item');
   const viewContainers = document.querySelectorAll('.view-container');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+
+  // Sidebar Toggle Logic
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+      if (sidebar.classList.contains('expanded')) {
+        sidebar.classList.remove('expanded');
+        sidebar.classList.add('collapsed');
+      } else {
+        sidebar.classList.remove('collapsed');
+        sidebar.classList.add('expanded');
+      }
+    });
+  }
 
   function switchView(viewId) {
     // Update active nav items (desktop and mobile)
@@ -57,10 +72,37 @@ document.addEventListener('DOMContentLoaded', () => {
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-      const viewId = item.dataset.view;
+      // Handle click within icon containers as well
+      const viewId = item.closest('.nav-item').dataset.view;
       if (viewId) {
         switchView(viewId);
       }
+    });
+  });
+
+  // Empty state routing
+  const btnRouteSettings = document.getElementById('btn-route-settings');
+  if (btnRouteSettings) {
+    btnRouteSettings.addEventListener('click', () => switchView('settings'));
+  }
+
+  // Compete Hub Tabs Logic
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      // Update buttons
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Update contents
+      tabContents.forEach(content => {
+        if (content.id === `tab-${target}`) {
+          content.style.display = 'block';
+        } else {
+          content.style.display = 'none';
+        }
+      });
     });
   });
 

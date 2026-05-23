@@ -7,167 +7,164 @@
     <link rel="apple-touch-icon" href="/vite.svg" />
     <meta name="theme-color" content="#050505" />
     <title>Cadence AI - App</title>
-    <style>
-      /* Layout structure */
-      body {
-        margin: 0;
-        background-color: var(--background);
-      }
-      .app-layout {
-        display: flex;
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-      }
-      .sidebar {
-        width: 80px;
-        background: var(--surface);
-        border-right: 1px solid var(--outline);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-        z-index: 100;
-      }
-      .main-content {
-        flex: 1;
-        overflow-y: auto;
-        position: relative;
-        padding-bottom: 80px; /* Mobile nav space */
-      }
-      .nav-item {
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--muted);
-        text-decoration: none;
-        margin-bottom: 16px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-      }
-      .nav-item.active {
-        background: rgba(110, 255, 192, 0.1);
-        color: var(--primary);
-      }
-      .nav-item:hover:not(.active) {
-        background: var(--surface-high);
-      }
-      .nav-icon {
-        width: 24px;
-        height: 24px;
-        fill: currentColor;
-      }
-      .nav-label {
-        font-size: 0.65rem;
-        margin-top: 4px;
-        font-weight: 500;
-      }
-      .mobile-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--surface);
-        border-top: 1px solid var(--outline);
-        height: 70px;
-        z-index: 100;
-        justify-content: space-around;
-        align-items: center;
-      }
-      /* View container */
-      .view-container {
-        display: none;
-        padding: 24px;
-        max-width: 800px;
-        margin: 0 auto;
-        animation: fadeIn 0.3s ease;
-      }
-      .view-container.active {
-        display: block;
-      }
-      
-      @media (max-width: 768px) {
-        .sidebar { display: none; }
-        .mobile-nav { display: flex; }
-        .main-content { padding-bottom: 70px; }
-      }
-      
-      /* Common Components for Views */
-      .header-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-      }
-    </style>
   </head>
   <body>
     <div class="app-layout">
       <!-- Desktop Navigation Rail -->
-      <nav class="sidebar">
+      <nav class="sidebar expanded" id="sidebar">
+        <div class="sidebar-header">
+          <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <svg viewBox="0 0 24 24" class="nav-icon"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+          </button>
+        </div>
+        
         <!-- Dashboard -->
         <a class="nav-item active" data-view="dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-          <span class="nav-label">Home</span>
+          <div class="nav-icon-container">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          </div>
+          <span class="nav-label">Dashboard</span>
         </a>
         <!-- Coach -->
         <a class="nav-item" data-view="coach">
-          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-          <span class="nav-label">Coach</span>
+          <div class="nav-icon-container">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          </div>
+          <span class="nav-label">AI Coach</span>
         </a>
         <!-- Activities -->
         <a class="nav-item" data-view="activities">
-          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
-          <span class="nav-label">Activity</span>
+          <div class="nav-icon-container">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+          </div>
+          <span class="nav-label">Activities</span>
         </a>
         <!-- Compete -->
         <a class="nav-item" data-view="compete">
-          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v-2H4v6h16v-6h-2v2h-2v-5h-2v5z"/></svg>
-          <span class="nav-label">Compete</span>
+          <div class="nav-icon-container">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v-2H4v6h16v-6h-2v2h-2v-5h-2v5z"/></svg>
+          </div>
+          <span class="nav-label">Compete Hub</span>
         </a>
         <!-- Settings -->
         <a class="nav-item" data-view="settings" style="margin-top: auto; margin-bottom: 24px;">
-          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          <div class="nav-icon-container">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          </div>
           <span class="nav-label">Settings</span>
         </a>
       </nav>
 
       <!-- Main Content Area -->
       <main class="main-content" id="main-content">
+        
         <!-- Dashboard View -->
-        <div id="view-dashboard" class="view-container active">
-          <!-- Dynamically loaded by app.js -->
-        </div>
+        <section id="view-dashboard" class="view-container active">
+          <div class="header-row">
+            <h1 class="heading">Dashboard</h1>
+            <div class="user-level">Lvl <span id="user-lvl-display">1</span></div>
+          </div>
+          <div class="xp-bar-container liquid-glass">
+            <div class="xp-bar-fill" id="xp-bar-fill" style="width: 30%;"></div>
+          </div>
+          
+          <div class="empty-state liquid-glass-strong mt-8 p-8 flex flex-col items-center text-center">
+            <h2 class="heading text-primary mb-2">Connect Strava to unlock your AI Coach</h2>
+            <p class="text-muted mb-6">Sync your runs and workouts to get personalized hybrid training advice.</p>
+            <button class="primary hover-scale" id="btn-route-settings">Go to Settings</button>
+          </div>
+        </section>
 
         <!-- Coach View -->
-        <div id="view-coach" class="view-container">
-          <!-- Dynamically loaded -->
-        </div>
+        <section id="view-coach" class="view-container">
+          <div class="header-row">
+            <h1 class="heading">AI Coach</h1>
+          </div>
+          <div class="chat-container liquid-glass p-6">
+            <div class="chat-bubble ai animate-fade-in-up">
+              <p>Ready for your hybrid training week? Let's analyze your latest activities.</p>
+            </div>
+            <div class="chat-bubble user animate-fade-in-up delay-1">
+              <p>I feel a bit sore from yesterday's threshold run.</p>
+            </div>
+            <div class="chat-bubble ai animate-fade-in-up delay-2">
+              <p>Understood. I've adjusted today's plan to a Zone 2 Recovery run. Aim for 45 mins at 130bpm.</p>
+            </div>
+          </div>
+          <div class="chat-input-area liquid-glass p-2 mt-4 flex">
+            <input type="text" placeholder="Ask your AI coach..." style="background:transparent; border:none; flex:1;" />
+            <button class="primary">Send</button>
+          </div>
+        </section>
 
         <!-- Activities View -->
-        <div id="view-activities" class="view-container">
-          <!-- Dynamically loaded -->
-        </div>
+        <section id="view-activities" class="view-container">
+          <div class="header-row">
+            <h1 class="heading">Activities</h1>
+          </div>
+          <div class="activities-grid">
+            <div class="activity-card liquid-glass p-4 animate-fade-in-up">
+              <div class="activity-type heading">Zone 2 Run</div>
+              <div class="activity-stats mono text-muted mt-2">10.5 km | 58:20</div>
+            </div>
+            <div class="activity-card liquid-glass p-4 animate-fade-in-up delay-1">
+              <div class="activity-type heading">Threshold Intervals</div>
+              <div class="activity-stats mono text-muted mt-2">8.0 km | 45:10</div>
+            </div>
+            <div class="activity-card liquid-glass p-4 animate-fade-in-up delay-2">
+              <div class="activity-type heading">Hyrox Prep</div>
+              <div class="activity-stats mono text-muted mt-2">Strength | 65:00</div>
+            </div>
+          </div>
+        </section>
 
         <!-- Compete View -->
-        <div id="view-compete" class="view-container">
-          <!-- Dynamically loaded -->
-        </div>
+        <section id="view-compete" class="view-container">
+          <div class="header-row">
+            <h1 class="heading">Compete Hub</h1>
+          </div>
+          <div class="tabs-container flex gap-4 mb-6">
+            <button class="tab-btn active liquid-glass px-6 py-2" data-tab="leagues">Leagues</button>
+            <button class="tab-btn liquid-glass px-6 py-2" data-tab="battles">1v1 Battles</button>
+          </div>
+          <div class="tab-content" id="tab-leagues">
+            <div class="liquid-glass p-8 text-center flex flex-col items-center">
+              <h3 class="heading mb-2 text-2xl">Bronze League</h3>
+              <p class="text-muted">Rank up by completing your AI prescriptions.</p>
+            </div>
+          </div>
+          <div class="tab-content" id="tab-battles" style="display: none;">
+            <div class="liquid-glass p-8 text-center flex flex-col items-center">
+              <h3 class="heading mb-2">No active battles</h3>
+              <button class="secondary mt-4 hover-scale">Challenge a Friend</button>
+            </div>
+          </div>
+        </section>
 
         <!-- Settings View -->
-        <div id="view-settings" class="view-container">
-          <!-- Dynamically loaded -->
-        </div>
+        <section id="view-settings" class="view-container">
+          <div class="header-row">
+            <h1 class="heading">Settings</h1>
+          </div>
+          <div class="settings-card liquid-glass p-6 mb-6">
+            <h3 class="heading mb-4">Integrations</h3>
+            <div class="integration-row flex justify-between items-center">
+              <div>
+                <h4 class="heading">Strava</h4>
+                <p class="text-muted text-sm">Sync your workouts automatically.</p>
+              </div>
+              <button class="primary hover-scale" id="btn-strava-connect" onclick="window.location.href='/strava-connect.html'">Connect with Strava</button>
+            </div>
+          </div>
+          <div class="settings-card liquid-glass p-6">
+            <h3 class="heading mb-4">Account</h3>
+            <button class="secondary text-error hover-scale" id="btn-logout">Sign Out</button>
+          </div>
+        </section>
       </main>
 
       <!-- Mobile Navigation Bar -->
       <nav class="mobile-nav">
-        <!-- Repeated items for mobile layout -->
         <a class="nav-item active" data-view="dashboard">
           <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
         </a>
